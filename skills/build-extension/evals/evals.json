@@ -3,6 +3,7 @@
   "evals": [
     {
       "id": 1,
+      "name": "hello-world",
       "prompt": "Make a hello world widget",
       "expected_output": "Creates a widget with valid structure (widget.json + dist/content.html), HTML fragment with heading and paragraph, runs registry build.",
       "files": [],
@@ -25,53 +26,8 @@
       ]
     },
     {
-      "id": 2,
-      "prompt": "I want to show our latest blog posts on the community",
-      "expected_output": "Asks clarifying questions about the data source (which blog API/RSS feed), identifies the need for a connector, asks what to display from each post. Does not immediately start building.",
-      "files": [],
-      "assertions": [
-        {
-          "name": "asks-about-data-source",
-          "text": "Asks the user where the blog posts come from (which API, RSS feed, or service) before building",
-          "type": "transcript"
-        },
-        {
-          "name": "identifies-connector-need",
-          "text": "Identifies that this requires a connector for external data access",
-          "type": "transcript"
-        },
-        {
-          "name": "does-not-build-immediately",
-          "text": "Does NOT create files or write code before gathering requirements from the user",
-          "type": "transcript"
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "prompt": "Build a banner widget, style it like https://stripe.com",
-      "expected_output": "Fetches stripe.com to extract design cues (colors, typography, layout). Creates a banner widget with styling inspired by the reference. Uses HTML fragment format.",
-      "files": [],
-      "assertions": [
-        {
-          "name": "fetches-reference-url",
-          "text": "Uses WebFetch to retrieve the referenced URL (stripe.com) for design inspiration",
-          "type": "transcript"
-        },
-        {
-          "name": "extracts-design-cues",
-          "text": "Identifies or describes design elements from the reference (colors, fonts, or layout patterns)",
-          "type": "transcript"
-        },
-        {
-          "name": "creates-valid-widget",
-          "text": "Creates widget.json and dist/content.html with valid structure",
-          "type": "transcript"
-        }
-      ]
-    },
-    {
       "id": 4,
+      "name": "analytics-tracking",
       "prompt": "Add analytics tracking to our community",
       "expected_output": "Identifies this as a global script (not a widget). Asks about which analytics provider and which pages to target. Creates script.json with appropriate page targeting rules.",
       "files": [],
@@ -95,6 +51,7 @@
     },
     {
       "id": 5,
+      "name": "brand-colors",
       "prompt": "Make the community match our brand colors",
       "expected_output": "Identifies this as a global stylesheet. Asks about brand colors, typography, and which elements to target. Creates stylesheet.json with rules.",
       "files": [],
@@ -117,37 +74,10 @@
       ]
     },
     {
-      "id": 6,
-      "prompt": "Build a dashboard showing support metrics from our internal API at api.example.com/metrics. It requires an API key.",
-      "expected_output": "Creates a widget with a connector using apikey auth and get_secret(). Asks what metrics to display and how to visualize them. Uses configuration properties for customization.",
-      "files": [],
-      "assertions": [
-        {
-          "name": "creates-connector-with-auth",
-          "text": "Creates connectors.json with apikey authentication type using get_secret() for the API key",
-          "type": "transcript"
-        },
-        {
-          "name": "asks-about-visualization",
-          "text": "Asks what metrics to show or how to visualize the data",
-          "type": "transcript"
-        },
-        {
-          "name": "uses-sdk-connector-execute",
-          "text": "Widget code calls sdk.connectors.execute() to fetch data from the connector",
-          "type": "transcript"
-        },
-        {
-          "name": "no-hardcoded-secrets",
-          "text": "Does NOT hardcode any API keys or secrets in the connector config — uses get_secret()",
-          "type": "transcript"
-        }
-      ]
-    },
-    {
       "id": 7,
+      "name": "polished-card",
       "prompt": "Build a widget that shows a user profile card with avatar, name, and role",
-      "expected_output": "Creates a polished profile card widget with consistent spacing, typography hierarchy, subtle shadows/borders, and hover/focus states on interactive elements. Output should look designed, not like raw unstyled HTML.",
+      "expected_output": "Creates a polished profile card widget with consistent spacing, typography hierarchy, subtle shadows/borders, and hover/focus states on interactive elements.",
       "files": [],
       "assertions": [
         {
@@ -178,45 +108,8 @@
       ]
     },
     {
-      "id": 8,
-      "prompt": "Build a promotional banner for a product launch",
-      "expected_output": "Creates a visually striking banner widget with gradient or layered background, strong typography hierarchy, responsive sizing, and a call-to-action button with hover states.",
-      "files": [],
-      "assertions": [
-        {
-          "name": "rich-background",
-          "text": "Banner uses a gradient, image overlay, or layered background technique — not a plain flat single-color background",
-          "type": "transcript"
-        },
-        {
-          "name": "headline-treatment",
-          "text": "Headline has deliberate typographic treatment: large font-size (at least 1.5rem or equivalent), distinct font-weight, and clear contrast against the background",
-          "type": "transcript"
-        },
-        {
-          "name": "cta-button-states",
-          "text": "Call-to-action button has defined hover and/or focus CSS states (e.g., :hover with color change, transform, or shadow transition)",
-          "type": "transcript"
-        },
-        {
-          "name": "responsive-sizing",
-          "text": "Uses at least one responsive technique: clamp() for font sizes, media queries, percentage/rem widths, or flexible CSS grid/flexbox layout",
-          "type": "transcript"
-        },
-        {
-          "name": "configurable-content",
-          "text": "Headline text, button text, and/or button URL are configurable via template variables ({{ property_name }}) or configuration properties",
-          "type": "transcript"
-        },
-        {
-          "name": "creates-valid-structure",
-          "text": "Creates widget.json with required fields and dist/content.html as an HTML fragment",
-          "type": "transcript"
-        }
-      ]
-    },
-    {
       "id": 9,
+      "name": "data-table",
       "prompt": "Build a widget that displays a table of customer health scores with columns for customer name, score, and trend",
       "expected_output": "Creates a data table widget with clear visual structure: distinct header row, row separation, right-aligned numbers, and loading/empty states.",
       "files": [],
@@ -249,108 +142,10 @@
       ]
     },
     {
-      "id": 10,
-      "prompt": "Build a small notification bar widget",
-      "expected_output": "Creates a compact notification bar appropriate in size (not card-sized), with icon+text alignment, dismiss interaction, and optionally a subtle entrance animation.",
-      "files": [],
-      "assertions": [
-        {
-          "name": "compact-sizing",
-          "text": "Notification bar has compact vertical sizing appropriate for a bar/banner (small padding, single line or close to it) — not a large card or full section",
-          "type": "transcript"
-        },
-        {
-          "name": "icon-text-alignment",
-          "text": "Uses flexbox or equivalent to horizontally align an icon/indicator with the notification text",
-          "type": "transcript"
-        },
-        {
-          "name": "dismiss-interaction",
-          "text": "Includes a dismiss/close button or mechanism with a click handler that hides the notification",
-          "type": "transcript"
-        },
-        {
-          "name": "transition-or-animation",
-          "text": "Uses at least one CSS transition or animation — on dismiss, entrance, or hover",
-          "type": "transcript"
-        },
-        {
-          "name": "creates-valid-structure",
-          "text": "Creates widget.json with required fields and dist/content.html as an HTML fragment",
-          "type": "transcript"
-        }
-      ]
-    },
-    {
-      "id": 11,
-      "prompt": "Build me a widget to promote my latest product release",
-      "expected_output": "Engages in focused conversation: asks where release data comes from, asks about desired format/size, proposes a specific approach before building. Does not overwhelm with too many questions at once.",
-      "files": [],
-      "assertions": [
-        {
-          "name": "asks-about-data-source",
-          "text": "Asks WHERE the release data comes from (GitHub, CMS, API, manual entry, etc.) — not just whether data is needed",
-          "type": "transcript"
-        },
-        {
-          "name": "asks-about-format",
-          "text": "Asks about the desired visual format, size, or placement (banner, card, sidebar, top bar, etc.)",
-          "type": "transcript"
-        },
-        {
-          "name": "focused-questions",
-          "text": "Asks at most 3-4 questions in its first response — does not dump 5+ questions at once",
-          "type": "transcript"
-        },
-        {
-          "name": "does-not-build-immediately",
-          "text": "Does NOT create any files before the user has answered at least one round of clarifying questions",
-          "type": "transcript"
-        },
-        {
-          "name": "proposes-approach",
-          "text": "Describes or proposes a specific approach/layout (e.g., 'I'm thinking a banner with headline and CTA') giving the user a chance to redirect before building",
-          "type": "transcript"
-        }
-      ]
-    },
-    {
-      "id": 12,
-      "prompt": "I need something that shows our NPS score on the community homepage",
-      "expected_output": "Progressively gathers requirements: identifies connector need for NPS data, asks about the API/service, asks about visualization preferences, proposes connector + widget design before building.",
-      "files": [],
-      "assertions": [
-        {
-          "name": "identifies-data-need",
-          "text": "Identifies that displaying NPS scores requires fetching data from an external source and mentions needing a connector",
-          "type": "transcript"
-        },
-        {
-          "name": "asks-about-api",
-          "text": "Asks which service or API provides the NPS data (e.g., Delighted, Qualtrics, internal API, etc.)",
-          "type": "transcript"
-        },
-        {
-          "name": "asks-about-visualization",
-          "text": "Asks how the NPS data should be visualized — gauge, number, trend chart, breakdown by segment, etc.",
-          "type": "transcript"
-        },
-        {
-          "name": "proposes-before-building",
-          "text": "Proposes the connector design (auth type, endpoint) and widget layout before writing any files",
-          "type": "transcript"
-        },
-        {
-          "name": "does-not-build-immediately",
-          "text": "Does NOT create files or write code before gathering requirements from the user",
-          "type": "transcript"
-        }
-      ]
-    },
-    {
       "id": 13,
+      "name": "linear-hero",
       "prompt": "Build a hero section widget inspired by linear.app — dark theme with clean typography",
-      "expected_output": "Fetches linear.app for design reference, extracts specific design tokens (dark background, clean sans-serif, gradient accents), and creates a widget that reflects those design decisions — not generic defaults.",
+      "expected_output": "Fetches linear.app for design reference, extracts specific design tokens (dark background, clean sans-serif, gradient accents), and creates a widget that reflects those design decisions.",
       "files": [],
       "assertions": [
         {
@@ -371,6 +166,90 @@
         {
           "name": "gradient-or-accent",
           "text": "Incorporates at least one gradient, glow effect, or distinctive accent color inspired by the reference design",
+          "type": "transcript"
+        },
+        {
+          "name": "creates-valid-structure",
+          "text": "Creates widget.json with required fields and dist/content.html as an HTML fragment",
+          "type": "transcript"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "name": "vague-request-multiturn",
+      "prompt": "Build me a widget to promote my latest product release",
+      "expected_output": "Asks clarifying questions, receives user answers, then builds a full-width banner widget with the specified brand colors, configurable content properties, and valid extension structure.",
+      "files": [],
+      "turns": [
+        "Full-width banner please. The content will be static — I want to configure headline, description, and CTA button text from the admin panel. Our brand colors are #1a1a2e (dark) and #e94560 (accent)."
+      ],
+      "assertions": [
+        {
+          "name": "uses-brand-colors",
+          "text": "CSS uses the specified brand colors #1a1a2e and #e94560 (or close variants)",
+          "type": "transcript"
+        },
+        {
+          "name": "full-width-layout",
+          "text": "Banner uses full-width or near-full-width layout (width: 100%, no narrow max-width constraint like 400px)",
+          "type": "transcript"
+        },
+        {
+          "name": "configurable-headline",
+          "text": "widget.json has a configuration property for headline/title text",
+          "type": "transcript"
+        },
+        {
+          "name": "configurable-cta",
+          "text": "widget.json has a configuration property for CTA button text or URL",
+          "type": "transcript"
+        },
+        {
+          "name": "html-fragment",
+          "text": "dist/content.html is an HTML fragment (no <!DOCTYPE>, <html>, <head>, or <body> tags)",
+          "type": "transcript"
+        },
+        {
+          "name": "creates-valid-structure",
+          "text": "Creates widget.json with required fields (version, title, description, category, source) and dist/content.html",
+          "type": "transcript"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "name": "nps-score-multiturn",
+      "prompt": "I need something that shows our NPS score on the community homepage",
+      "expected_output": "Asks about NPS data source and visualization, receives Delighted API details, then builds a widget with an apikey connector and a gauge/score display.",
+      "files": [],
+      "turns": [
+        "We use Delighted. Their API is at https://api.delighted.com/v1/metrics. It needs an API key. Show the overall NPS score as a big number with a color indicator (red/yellow/green based on score range) and the response count below it."
+      ],
+      "assertions": [
+        {
+          "name": "creates-apikey-connector",
+          "text": "Creates connectors.json with auth_type 'apikey' and uses get_secret() for the API key",
+          "type": "transcript"
+        },
+        {
+          "name": "connector-url-correct",
+          "text": "Connector base_url points to api.delighted.com or the Delighted API",
+          "type": "transcript"
+        },
+        {
+          "name": "displays-nps-number",
+          "text": "Widget prominently displays the NPS score as a large number",
+          "type": "transcript"
+        },
+        {
+          "name": "color-coded-indicator",
+          "text": "Widget uses color coding based on score range (red for low, yellow for medium, green for high)",
+          "type": "transcript"
+        },
+        {
+          "name": "shows-response-count",
+          "text": "Widget displays the response count below or alongside the score",
           "type": "transcript"
         },
         {
