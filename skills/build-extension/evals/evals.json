@@ -179,40 +179,61 @@
       "id": 14,
       "name": "vague-request-multiturn",
       "prompt": "Build me a widget to promote my latest product release",
-      "expected_output": "Asks clarifying questions, receives user answers, then builds a full-width banner widget with the specified brand colors, configurable content properties, and valid extension structure.",
+      "expected_output": "Turn 1: Proposes direction, asks focused questions. Turn 2: User says 'banner, match stripe.com' — agent must fetch the reference and extract design cues. Turn 3: User says 'go ahead'. Agent builds with design inspired by reference, configurable content, SDK compliance.",
       "files": [],
       "turns": [
-        "Full-width banner please. The content will be static — I want to configure headline, description, and CTA button text from the admin panel. Our brand colors are #1a1a2e (dark) and #e94560 (accent)."
+        "A banner would work. Make it match our site — stripe.com is the reference for the look and feel.",
+        "Yep, build it"
       ],
       "assertions": [
         {
-          "name": "uses-brand-colors",
-          "text": "CSS uses the specified brand colors #1a1a2e and #e94560 (or close variants)",
+          "name": "turn1-focused-questions",
+          "text": "In turn 1, asks at most 3-4 clarifying questions — does not dump 5+ questions at once",
           "type": "transcript"
         },
         {
-          "name": "full-width-layout",
-          "text": "Banner uses full-width or near-full-width layout (width: 100%, no narrow max-width constraint like 400px)",
+          "name": "turn1-proposes-approach",
+          "text": "In turn 1, proposes a specific visual direction (e.g., 'banner with headline and CTA') before receiving the user's answer",
           "type": "transcript"
         },
         {
-          "name": "configurable-headline",
-          "text": "widget.json has a configuration property for headline/title text",
+          "name": "turn1-no-premature-build",
+          "text": "In turn 1, does NOT create any extension files — waits for user answer before building",
           "type": "transcript"
         },
         {
-          "name": "configurable-cta",
-          "text": "widget.json has a configuration property for CTA button text or URL",
+          "name": "turn2-fetches-reference",
+          "text": "In turn 2, agent uses WebFetch to retrieve stripe.com and extracts design cues (colors, typography, layout patterns)",
+          "type": "transcript"
+        },
+        {
+          "name": "turn2-proposes-design",
+          "text": "In turn 2, agent proposes a concrete design based on the reference — mentions specific colors, fonts, or layout choices extracted from stripe.com",
+          "type": "transcript"
+        },
+        {
+          "name": "design-reflects-reference",
+          "text": "Final CSS reflects design choices informed by stripe.com — not generic defaults (e.g., uses colors, typography, or layout patterns that can be traced to the reference)",
+          "type": "transcript"
+        },
+        {
+          "name": "configurable-properties",
+          "text": "Final widget.json has configuration properties for content that the admin can edit (headline, CTA text, or similar)",
           "type": "transcript"
         },
         {
           "name": "html-fragment",
-          "text": "dist/content.html is an HTML fragment (no <!DOCTYPE>, <html>, <head>, or <body> tags)",
+          "text": "Final dist/content.html is an HTML fragment (no <!DOCTYPE>, <html>, <head>, or <body> tags)",
+          "type": "transcript"
+        },
+        {
+          "name": "sdk-compliant",
+          "text": "Final widget code uses sdk.$() for DOM queries and sdk.getProps() or template variables for configuration",
           "type": "transcript"
         },
         {
           "name": "creates-valid-structure",
-          "text": "Creates widget.json with required fields (version, title, description, category, source) and dist/content.html",
+          "text": "Final output includes widget.json with required fields (version, title, description, category, source) and dist/content.html",
           "type": "transcript"
         }
       ]
@@ -221,40 +242,56 @@
       "id": 16,
       "name": "nps-score-multiturn",
       "prompt": "I need something that shows our NPS score on the community homepage",
-      "expected_output": "Asks about NPS data source and visualization, receives Delighted API details, then builds a widget with an apikey connector and a gauge/score display.",
+      "expected_output": "Turn 1: Identifies connector need, asks about data source and visualization. Turn 2: User says 'Delighted, API key' — gives no endpoint, no visualization preference. Agent must fill gaps: propose visualization, figure out connector details. Turn 3: User says 'go ahead'. Agent builds.",
       "files": [],
       "turns": [
-        "We use Delighted. Their API is at https://api.delighted.com/v1/metrics. It needs an API key. Show the overall NPS score as a big number with a color indicator (red/yellow/green based on score range) and the response count below it."
+        "We use Delighted. It needs an API key I think.",
+        "Sure, go ahead"
       ],
       "assertions": [
         {
+          "name": "turn1-identifies-connector",
+          "text": "In turn 1, identifies that displaying NPS data requires a connector to fetch from an external API",
+          "type": "transcript"
+        },
+        {
+          "name": "turn1-asks-data-source",
+          "text": "In turn 1, asks which service or API provides the NPS data before building",
+          "type": "transcript"
+        },
+        {
+          "name": "turn1-no-premature-build",
+          "text": "In turn 1, does NOT create any extension files — waits for user answer before building",
+          "type": "transcript"
+        },
+        {
+          "name": "turn2-fills-gaps",
+          "text": "In turn 2, agent proactively addresses what the user didn't specify — proposes a visualization style AND connector design (endpoint URL, auth configuration) rather than asking the user to look it up",
+          "type": "transcript"
+        },
+        {
           "name": "creates-apikey-connector",
-          "text": "Creates connectors.json with auth_type 'apikey' and uses get_secret() for the API key",
+          "text": "Final connectors.json uses auth_type 'apikey' and get_secret() — no hardcoded secrets",
           "type": "transcript"
         },
         {
-          "name": "connector-url-correct",
-          "text": "Connector base_url points to api.delighted.com or the Delighted API",
+          "name": "uses-sdk-connector-execute",
+          "text": "Final widget code calls sdk.connectors.execute() to fetch data from the connector",
           "type": "transcript"
         },
         {
-          "name": "displays-nps-number",
-          "text": "Widget prominently displays the NPS score as a large number",
+          "name": "reasonable-visualization",
+          "text": "Final widget displays the NPS score with intentional visual treatment (color coding, gauge, large number, or trend indicator) — not just raw text dump",
           "type": "transcript"
         },
         {
-          "name": "color-coded-indicator",
-          "text": "Widget uses color coding based on score range (red for low, yellow for medium, green for high)",
-          "type": "transcript"
-        },
-        {
-          "name": "shows-response-count",
-          "text": "Widget displays the response count below or alongside the score",
+          "name": "html-fragment",
+          "text": "Final dist/content.html is an HTML fragment (no <!DOCTYPE>, <html>, <head>, or <body> tags)",
           "type": "transcript"
         },
         {
           "name": "creates-valid-structure",
-          "text": "Creates widget.json with required fields and dist/content.html as an HTML fragment",
+          "text": "Final output includes widget.json with required fields and dist/content.html",
           "type": "transcript"
         }
       ]
