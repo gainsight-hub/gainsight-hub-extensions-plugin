@@ -143,6 +143,242 @@
           "type": "transcript"
         }
       ]
+    },
+    {
+      "id": 7,
+      "prompt": "Build a widget that shows a user profile card with avatar, name, and role",
+      "expected_output": "Creates a polished profile card widget with consistent spacing, typography hierarchy, subtle shadows/borders, and hover/focus states on interactive elements. Output should look designed, not like raw unstyled HTML.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "consistent-spacing",
+          "text": "CSS uses a consistent spacing approach — values follow a recognizable scale (multiples of 4px/8px, or rem units) rather than arbitrary pixel values like 13px, 37px, etc.",
+          "type": "transcript"
+        },
+        {
+          "name": "typography-hierarchy",
+          "text": "Output has at least 2 distinct heading/text levels with different font-size and/or font-weight, creating clear visual hierarchy (e.g., name is larger/bolder than role)",
+          "type": "transcript"
+        },
+        {
+          "name": "visual-polish",
+          "text": "Card uses at least 2 of: border-radius, box-shadow, subtle border, background color differentiation, or gradient — not just plain unstyled divs",
+          "type": "transcript"
+        },
+        {
+          "name": "avatar-styling",
+          "text": "Avatar element has explicit styling — border-radius (circle or rounded), defined dimensions, and object-fit or background-size for image handling",
+          "type": "transcript"
+        },
+        {
+          "name": "creates-valid-structure",
+          "text": "Creates widget.json with required fields and dist/content.html as an HTML fragment",
+          "type": "transcript"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Build a promotional banner for a product launch",
+      "expected_output": "Creates a visually striking banner widget with gradient or layered background, strong typography hierarchy, responsive sizing, and a call-to-action button with hover states.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "rich-background",
+          "text": "Banner uses a gradient, image overlay, or layered background technique — not a plain flat single-color background",
+          "type": "transcript"
+        },
+        {
+          "name": "headline-treatment",
+          "text": "Headline has deliberate typographic treatment: large font-size (at least 1.5rem or equivalent), distinct font-weight, and clear contrast against the background",
+          "type": "transcript"
+        },
+        {
+          "name": "cta-button-states",
+          "text": "Call-to-action button has defined hover and/or focus CSS states (e.g., :hover with color change, transform, or shadow transition)",
+          "type": "transcript"
+        },
+        {
+          "name": "responsive-sizing",
+          "text": "Uses at least one responsive technique: clamp() for font sizes, media queries, percentage/rem widths, or flexible CSS grid/flexbox layout",
+          "type": "transcript"
+        },
+        {
+          "name": "configurable-content",
+          "text": "Headline text, button text, and/or button URL are configurable via template variables ({{ property_name }}) or configuration properties",
+          "type": "transcript"
+        },
+        {
+          "name": "creates-valid-structure",
+          "text": "Creates widget.json with required fields and dist/content.html as an HTML fragment",
+          "type": "transcript"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "Build a widget that displays a table of customer health scores with columns for customer name, score, and trend",
+      "expected_output": "Creates a data table widget with clear visual structure: distinct header row, row separation, right-aligned numbers, and loading/empty states.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "header-distinct",
+          "text": "Table header row is visually distinct from data rows — uses different background color, font-weight, or border styling",
+          "type": "transcript"
+        },
+        {
+          "name": "row-separation",
+          "text": "Table rows have clear visual separation — zebra striping (alternating row colors), borders between rows, or spacing/gap between rows",
+          "type": "transcript"
+        },
+        {
+          "name": "number-alignment",
+          "text": "Numeric columns (score) are right-aligned or use tabular-nums/monospace for number display",
+          "type": "transcript"
+        },
+        {
+          "name": "loading-or-empty-state",
+          "text": "Widget handles at least one non-happy-path state: loading indicator, empty state message, or error state — not just the populated table",
+          "type": "transcript"
+        },
+        {
+          "name": "creates-valid-structure",
+          "text": "Creates widget.json with required fields and dist/content.html as an HTML fragment",
+          "type": "transcript"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "Build a small notification bar widget",
+      "expected_output": "Creates a compact notification bar appropriate in size (not card-sized), with icon+text alignment, dismiss interaction, and optionally a subtle entrance animation.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "compact-sizing",
+          "text": "Notification bar has compact vertical sizing appropriate for a bar/banner (small padding, single line or close to it) — not a large card or full section",
+          "type": "transcript"
+        },
+        {
+          "name": "icon-text-alignment",
+          "text": "Uses flexbox or equivalent to horizontally align an icon/indicator with the notification text",
+          "type": "transcript"
+        },
+        {
+          "name": "dismiss-interaction",
+          "text": "Includes a dismiss/close button or mechanism with a click handler that hides the notification",
+          "type": "transcript"
+        },
+        {
+          "name": "transition-or-animation",
+          "text": "Uses at least one CSS transition or animation — on dismiss, entrance, or hover",
+          "type": "transcript"
+        },
+        {
+          "name": "creates-valid-structure",
+          "text": "Creates widget.json with required fields and dist/content.html as an HTML fragment",
+          "type": "transcript"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "prompt": "Build me a widget to promote my latest product release",
+      "expected_output": "Engages in focused conversation: asks where release data comes from, asks about desired format/size, proposes a specific approach before building. Does not overwhelm with too many questions at once.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "asks-about-data-source",
+          "text": "Asks WHERE the release data comes from (GitHub, CMS, API, manual entry, etc.) — not just whether data is needed",
+          "type": "transcript"
+        },
+        {
+          "name": "asks-about-format",
+          "text": "Asks about the desired visual format, size, or placement (banner, card, sidebar, top bar, etc.)",
+          "type": "transcript"
+        },
+        {
+          "name": "focused-questions",
+          "text": "Asks at most 3-4 questions in its first response — does not dump 5+ questions at once",
+          "type": "transcript"
+        },
+        {
+          "name": "does-not-build-immediately",
+          "text": "Does NOT create any files before the user has answered at least one round of clarifying questions",
+          "type": "transcript"
+        },
+        {
+          "name": "proposes-approach",
+          "text": "Describes or proposes a specific approach/layout (e.g., 'I'm thinking a banner with headline and CTA') giving the user a chance to redirect before building",
+          "type": "transcript"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "prompt": "I need something that shows our NPS score on the community homepage",
+      "expected_output": "Progressively gathers requirements: identifies connector need for NPS data, asks about the API/service, asks about visualization preferences, proposes connector + widget design before building.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "identifies-data-need",
+          "text": "Identifies that displaying NPS scores requires fetching data from an external source and mentions needing a connector",
+          "type": "transcript"
+        },
+        {
+          "name": "asks-about-api",
+          "text": "Asks which service or API provides the NPS data (e.g., Delighted, Qualtrics, internal API, etc.)",
+          "type": "transcript"
+        },
+        {
+          "name": "asks-about-visualization",
+          "text": "Asks how the NPS data should be visualized — gauge, number, trend chart, breakdown by segment, etc.",
+          "type": "transcript"
+        },
+        {
+          "name": "proposes-before-building",
+          "text": "Proposes the connector design (auth type, endpoint) and widget layout before writing any files",
+          "type": "transcript"
+        },
+        {
+          "name": "does-not-build-immediately",
+          "text": "Does NOT create files or write code before gathering requirements from the user",
+          "type": "transcript"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "prompt": "Build a hero section widget inspired by linear.app — dark theme with clean typography",
+      "expected_output": "Fetches linear.app for design reference, extracts specific design tokens (dark background, clean sans-serif, gradient accents), and creates a widget that reflects those design decisions — not generic defaults.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "fetches-reference",
+          "text": "Uses WebFetch to retrieve linear.app for design inspiration",
+          "type": "transcript"
+        },
+        {
+          "name": "dark-theme-applied",
+          "text": "Output uses a dark color scheme (dark background with light text) matching the reference site's aesthetic",
+          "type": "transcript"
+        },
+        {
+          "name": "clean-typography",
+          "text": "Uses a system or sans-serif font stack with deliberate font-size/weight/letter-spacing choices — not browser defaults",
+          "type": "transcript"
+        },
+        {
+          "name": "gradient-or-accent",
+          "text": "Incorporates at least one gradient, glow effect, or distinctive accent color inspired by the reference design",
+          "type": "transcript"
+        },
+        {
+          "name": "creates-valid-structure",
+          "text": "Creates widget.json with required fields and dist/content.html as an HTML fragment",
+          "type": "transcript"
+        }
+      ]
     }
   ]
 }

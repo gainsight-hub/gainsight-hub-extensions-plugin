@@ -1,0 +1,13 @@
+{
+  "enabledPlugins": {
+    "superpowers-developing-for-claude-code@superpowers-marketplace": true
+  },
+  "env": {
+    "CLAUDE_CODE_TASK_LIST_ID": "gainsight-hub-extensions-plugin"
+  },
+  "permissions": {
+    "allow": [
+      "WebFetch"
+    ]
+  }
+}

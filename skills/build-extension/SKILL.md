@@ -23,49 +23,79 @@ If building a connector that calls a third-party API, fetch that API's documenta
 
 ## Interactive Workflow
 
-### Step 1: What do you want to build?
+The goal is a natural, focused conversation — not an interrogation. Ask 2-3 questions at a time, propose a concrete direction, and wait for the user to respond before moving on. Users should feel like they're collaborating with a designer, not filling out a form.
 
-Ask the user which type of extension (or infer from context):
+### Conversational principles
+
+- **2-3 questions max per turn.** Prioritize the questions that most change what you'd build. You can always ask follow-ups later.
+- **Propose, don't just ask.** Instead of "what layout do you want?" say "I'm thinking a full-width banner with a gradient background and CTA button — does that sound right, or were you thinking more of a compact card?" Give the user something to react to.
+- **Wait for the user.** Never self-answer your own questions. If the user hasn't responded, stop and wait. Do not proceed to build with assumed defaults unless the user explicitly says to go ahead.
+- **Infer from context.** If the user says "small notification bar", you already know the layout — don't ask about layout. Focus questions on what you genuinely can't infer.
+
+### Step 1: Identify the extension type
+
+Determine which type (or infer from context):
 - **Widget** — Self-contained HTML component rendered in Shadow DOM (`widgets/<name>/`)
 - **Global script** — Page-level JavaScript injected on matching pages (`scripts/<name>/`)
 - **Global stylesheet** — Shared CSS applied on matching pages (`stylesheets/<name>/`)
 
-When presenting your questions to the user, always outline the planned extension structure (directory layout, config files, content files) so they understand what will be created. This helps them give better answers.
+Outline the planned directory structure so the user understands what will be created.
 
-### Step 2: What should it do?
+### Step 2: Gather requirements (conversationally)
 
-Gather purpose and behavior:
-- **Widgets**: Content, interactions, configurability (colors, layout, text via `{{ property_name }}` templates)
-- **Scripts**: Page-level behavior (analytics, DOM manipulation, integrations), page targeting rules
-- **Stylesheets**: Design tokens, style overrides, target elements, page targeting rules
+Combine purpose, appearance, and data questions into a natural flow rather than rigid separate steps. In your first response after identifying the type, ask the 2-3 most important questions and propose a direction:
 
-### Step 3: How should it look?
+**For widgets**, the key questions are:
+- What content/data should it show? (And where does that data come from — manual config vs API?)
+- What visual format fits? (Propose one based on context: banner, card, table, gauge, etc.)
+- Any specific design inspiration? (If they mention a URL, fetch it for design cues)
 
-For widgets and stylesheets, ask about appearance:
-- Layout style (grid, list, cards, banner, sidebar)
-- Color scheme (brand colors via `var(--config--main-color-brand)`, accent colors)
-- Typography (font size, weight, family)
-- Responsive behavior
+**For scripts**: What behavior, which pages, which provider?
+**For stylesheets**: What elements, brand colors, which pages?
 
-### Step 4: Does the widget need external data?
+If the widget needs external data, propose a connector design (auth type, endpoint pattern) as part of your response — don't just flag it as a separate step. Example: "Since the NPS data comes from Delighted, I'd set up a connector with apikey auth using `get_secret('delighted_api_key')` — the widget would call `sdk.connectors.execute({ permalink: 'delighted-nps', method: 'GET' })` to fetch the score. Sound right?"
 
-For widgets, determine data needs:
-- **No** — Static content or user-configurable via `configuration` properties and `{{ variable_name }}` templates
-- **Yes** — Needs a **connector** for API access via `WidgetServiceSDK`
+### Step 3: Build and validate
 
-If yes:
-1. Ask where the data comes from (which API/service)
-2. Fetch the third-party API documentation
-3. Ask what the widget should do with the data
-4. Design the connector (`connectors.json`) with URL, method, headers, auth type
-5. Widget calls connector via: `const data = await sdk.connectors.execute({ permalink: "name", method: "GET" });`
-
-### Step 5: Build and validate
+Once you have enough context (the user has answered at least one round of questions, or the request is specific enough to build directly):
 
 1. Create directory structure and config files
 2. Write content files (HTML/JS/CSS)
 3. Run `./bin/build-registry.sh` to rebuild registries
 4. Run `./bin/build-registry.sh --validate` to confirm validity
+
+## Design Quality
+
+Widgets should look like they were built by an experienced frontend developer. Users notice when something feels "off" even if they can't articulate why. These patterns make the difference:
+
+### Spacing and layout
+- Use a consistent spacing scale — multiples of 4px or 8px (e.g., 4, 8, 12, 16, 24, 32, 48). Avoid arbitrary values like 13px or 37px.
+- Use `rem` for typography and `px` for borders/shadows. This keeps text responsive while keeping decorative elements crisp.
+- Use flexbox or CSS grid for layout — never rely on floats or manual positioning.
+
+### Typography
+- Establish clear hierarchy: at minimum 2 distinct levels (e.g., heading at 1.5rem/600 weight, body at 0.875rem/400 weight).
+- Use a system font stack: `-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif` or load a specific font via HTTPS CDN.
+- Consider `letter-spacing` for headings (tight: -0.02em) and small caps/labels (wide: 0.05em).
+
+### Visual polish
+- Every card/container needs at least 2 of: `border-radius`, `box-shadow`, subtle `border`, background differentiation.
+- Interactive elements (buttons, links, clickable rows) need `:hover` and `:focus` states with transitions (`transition: all 0.15s ease`).
+- Use `clamp()` for responsive font sizes: `font-size: clamp(1rem, 2.5vw, 1.5rem)`.
+- Add `@media` queries for mobile breakpoints (typically 600px or 768px).
+
+### Data display
+- Right-align numeric columns in tables. Use `font-variant-numeric: tabular-nums` or a monospace font for numbers so digits line up.
+- Color-code values where meaningful (green/amber/red for scores, up/down arrows for trends).
+- Always include a non-happy-path state: loading spinner, empty state message, or error fallback.
+- Table headers should be visually distinct: different background, font-weight, or border treatment.
+- Use zebra striping or border-bottom for row separation.
+
+### Color and theming
+- Use `var(--config--main-color-brand, #fallback)` for brand integration.
+- Use CSS custom properties for theming so admins can customize via configuration.
+- Ensure sufficient contrast (WCAG AA: 4.5:1 for text, 3:1 for large text).
+- Gradients and layered backgrounds make banners/heroes feel premium — avoid flat single-color backgrounds for promotional content.
 
 ## Critical Rules
 
