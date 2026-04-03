@@ -1,0 +1,13 @@
+[
+  {"query": "What auth types are available for connectors?", "should_trigger": true},
+  {"query": "How does Shadow DOM work in Insided widgets?", "should_trigger": true},
+  {"query": "What configuration property types can I use?", "should_trigger": true},
+  {"query": "How do page targeting rules work for scripts?", "should_trigger": true},
+  {"query": "What's the widget.json schema?", "should_trigger": true},
+
+  {"query": "Build me a widget", "should_trigger": false},
+  {"query": "Validate my extension", "should_trigger": false},
+  {"query": "Create a stylesheet for the community", "should_trigger": false},
+  {"query": "Write a Python script", "should_trigger": false},
+  {"query": "Check my widget.json for errors", "should_trigger": false}
+]

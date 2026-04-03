@@ -1,0 +1,77 @@
+{
+  "skill_name": "hub-reference",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "What authentication types can I use for connectors?",
+      "expected_output": "Lists all 5 connector auth types with descriptions: none, apikey, oauth_client_credentials, jwt, oauth_jwt_bearer. Mentions get_secret() for credentials.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "lists-all-auth-types",
+          "text": "Lists all 5 authentication types: none, apikey, oauth_client_credentials, jwt, oauth_jwt_bearer",
+          "type": "transcript"
+        },
+        {
+          "name": "mentions-get-secret",
+          "text": "Mentions get_secret() as the way to handle credentials securely",
+          "type": "transcript"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "How do I query the DOM from inside a widget?",
+      "expected_output": "Explains Shadow DOM isolation, recommends sdk.$() and sdk.$$() instead of document.querySelector, mentions branding CSS custom properties.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "explains-shadow-dom",
+          "text": "Explains that widgets run inside Shadow DOM and standard DOM queries won't work",
+          "type": "transcript"
+        },
+        {
+          "name": "recommends-sdk-selectors",
+          "text": "Recommends sdk.$() and sdk.$$() as replacements for document.querySelector and document.querySelectorAll",
+          "type": "transcript"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "What types can I use for configuration properties?",
+      "expected_output": "Lists all configuration property types: text, number, color, select, toggle, date, boolean. Explains how to access them at runtime.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "lists-property-types",
+          "text": "Lists the configuration property types including at least: text, number, color, select, toggle, boolean",
+          "type": "transcript"
+        },
+        {
+          "name": "explains-runtime-access",
+          "text": "Explains how to access configuration values at runtime (sdk.getProps() or {{ property_name }} templates)",
+          "type": "transcript"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "How do page targeting rules work for scripts and stylesheets?",
+      "expected_output": "Explains the rules system with fields (authenticated, pageType, contentType), operators (eq, neq, in, nin), and default behavior.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "explains-rule-fields",
+          "text": "Describes the available rule fields: authenticated, pageType, and contentType",
+          "type": "transcript"
+        },
+        {
+          "name": "explains-operators",
+          "text": "Lists the available operators: eq, neq, in, nin",
+          "type": "transcript"
+        }
+      ]
+    }
+  ]
+}
