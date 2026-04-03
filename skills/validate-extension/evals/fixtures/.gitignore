@@ -1,0 +1,2 @@
+# Override global dist/ exclusion — these are test fixtures, not build output
+!dist/
