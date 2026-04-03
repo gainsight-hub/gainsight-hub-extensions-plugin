@@ -75,7 +75,7 @@ fi
 # --- Connector security check ---
 if [[ "$FILENAME" == "connectors.json" ]] && command -v jq &>/dev/null && jq empty "$FILE_PATH" 2>/dev/null; then
   # Check for hardcoded secrets (values that look like API keys/tokens but don't use get_secret)
-  if jq -r '.. | strings' "$FILE_PATH" 2>/dev/null | grep -qiE '(api.?key|token|secret|password|bearer)' | grep -v 'get_secret'; then
+  if jq -r '.. | strings' "$FILE_PATH" 2>/dev/null | grep -v 'get_secret' | grep -qiE '(api.?key|token|secret|password|bearer)'; then
     ISSUES+=("WARNING: Possible hardcoded secret detected — use get_secret('key') in connectors")
   fi
 fi
