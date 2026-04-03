@@ -3,7 +3,11 @@
 Multi-turn eval runner for build-extension skill.
 
 Runs a single eval using claude CLI sessions with --resume for follow-up turns.
-Supports both single-turn (backward compatible) and multi-turn evals.
+The agent works in a temporary workspace that mirrors the widgets-repository-template
+structure, so the skill creates files in their natural locations (widgets/<name>/,
+scripts/<name>/, stylesheets/<name>/).
+
+After all turns complete, the runner collects created files into outputs/ for grading.
 
 Usage:
     python scripts/run-multi-turn-eval.py \
@@ -11,21 +15,18 @@ Usage:
         --config with_skill \
         --output-dir build-extension-workspace/iteration-7/vague-multiturn/with_skill/run-1 \
         --skill-path skills/build-extension
-
-    # Baseline (no skill, isolated worktree):
-    python scripts/run-multi-turn-eval.py \
-        --eval-id 14 \
-        --config without_skill \
-        --output-dir build-extension-workspace/iteration-7/vague-multiturn/without_skill/run-1
 """
 
 import argparse
 import json
+import shutil
 import subprocess
 import sys
 import time
 import uuid
 from pathlib import Path
+
+EXTENSION_DIRS = ["widgets", "scripts", "stylesheets"]
 
 
 def run_turn(session_id: str, prompt: str, work_dir: Path, resume: bool = False,
@@ -55,6 +56,29 @@ def run_turn(session_id: str, prompt: str, work_dir: Path, resume: bool = False,
     }
 
 
+def collect_outputs(work_dir: Path, output_dir: Path) -> list[str]:
+    """Find extension files created in the workspace and copy to outputs/."""
+    outputs_dir = output_dir / "outputs"
+    outputs_dir.mkdir(exist_ok=True)
+    collected = []
+
+    for ext_dir_name in EXTENSION_DIRS:
+        ext_dir = work_dir / ext_dir_name
+        if not ext_dir.exists():
+            continue
+        for item in sorted(ext_dir.iterdir()):
+            if not item.is_dir():
+                continue
+            # Copy the entire extension directory (e.g., widgets/my-widget/)
+            dest = outputs_dir / ext_dir_name / item.name
+            shutil.copytree(item, dest, dirs_exist_ok=True)
+            for f in sorted(dest.rglob("*")):
+                if f.is_file():
+                    collected.append(str(f.relative_to(outputs_dir)))
+
+    return collected
+
+
 def main():
     parser = argparse.ArgumentParser(description="Multi-turn eval runner")
     parser.add_argument("--eval-file", default="skills/build-extension/evals/evals.json")
@@ -73,30 +97,30 @@ def main():
 
     output_dir = Path(args.output_dir).resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
-    (output_dir / "outputs").mkdir(exist_ok=True)
+
+    # Create a clean workspace for the agent to work in
+    work_dir = output_dir / "workspace"
+    work_dir.mkdir(exist_ok=True)
 
     session_id = str(uuid.uuid4())
     transcript_turns = []
 
-    # Build turn 1
-    outputs_path = output_dir / "outputs"
+    # Build turn 1 — no output dir override, let the skill place files naturally
     if args.config == "with_skill":
         skill_abs = str(Path(args.skill_path).resolve() / "SKILL.md")
         turn1 = (
             f"Read the skill at {skill_abs} and follow its instructions.\n\n"
-            f"User request: {eval_def['prompt']}\n\n"
-            f"Create any extension files in {outputs_path}/"
+            f"User request: {eval_def['prompt']}"
         )
     else:
         turn1 = (
             f"You are working on a Gainsight Hub (Insided) Extensions project.\n\n"
-            f"{eval_def['prompt']}\n\n"
-            f"Create any extension files in {outputs_path}/"
+            f"{eval_def['prompt']}"
         )
 
     # Execute turn 1
     print(f"[Turn 1] {eval_def['prompt'][:80]}")
-    r = run_turn(session_id, turn1, output_dir, resume=False)
+    r = run_turn(session_id, turn1, work_dir, resume=False)
     transcript_turns.append({
         "turn": 1,
         "user": eval_def["prompt"],
@@ -111,7 +135,7 @@ def main():
     # Follow-up turns
     for i, user_msg in enumerate(eval_def.get("turns", []), start=2):
         print(f"[Turn {i}] {user_msg[:80]}")
-        r = run_turn(session_id, user_msg, output_dir, resume=True)
+        r = run_turn(session_id, user_msg, work_dir, resume=True)
         transcript_turns.append({
             "turn": i,
             "user": user_msg,
@@ -121,15 +145,23 @@ def main():
         })
         print(f"  -> {r['duration_seconds']}s, exit {r['returncode']}")
 
+    # Collect extension files from workspace into outputs/
+    collected = collect_outputs(work_dir, output_dir)
+    if collected:
+        print(f"\nCollected {len(collected)} files:")
+        for f in collected:
+            print(f"  {f}")
+
     # Save transcript.json
     (output_dir / "transcript.json").write_text(json.dumps(transcript_turns, indent=2))
 
-    # Save response.md (for eval viewer)
+    # Save response.md (for eval viewer — also into outputs/ so viewer shows it)
     parts = []
     for t in transcript_turns:
         parts.append(f"## Turn {t['turn']}\n\n**User:** {t['user']}\n\n**Agent:**\n\n{t['agent']}")
     response_md = "\n\n---\n\n".join(parts)
     (output_dir / "response.md").write_text(response_md)
+    (output_dir / "outputs").mkdir(exist_ok=True)
     (output_dir / "outputs" / "response.md").write_text(response_md)
 
     # Save timing.json
@@ -152,12 +184,6 @@ def main():
         "turns": eval_def.get("turns", []),
         "assertions": eval_def.get("assertions", []),
     }, indent=2))
-
-    # Copy content.html to outputs/ root if it's in outputs/dist/
-    dist_html = output_dir / "outputs" / "dist" / "content.html"
-    if dist_html.exists():
-        import shutil
-        shutil.copy2(dist_html, output_dir / "outputs" / "content.html")
 
     print(f"\nDone. {len(transcript_turns)} turns, {total}s total.")
     print(f"Outputs: {output_dir}")
