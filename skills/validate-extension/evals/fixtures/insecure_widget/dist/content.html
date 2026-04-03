@@ -1,0 +1,11 @@
+<div id="data-container">
+  <h2>Dashboard</h2>
+  <div class="content"></div>
+</div>
+<script>
+  const sdk = new window.WidgetServiceSDK();
+  // BUG: Should use sdk.$() not document.querySelector
+  const container = document.querySelector('.content');
+  const data = await sdk.connectors.execute({ permalink: "my-api", method: "GET" });
+  container.innerHTML = JSON.stringify(data);
+</script>
