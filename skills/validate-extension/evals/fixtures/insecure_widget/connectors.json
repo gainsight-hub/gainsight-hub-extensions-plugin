@@ -1,0 +1,15 @@
+[
+  {
+    "name": "my-api",
+    "url": "https://api.example.com/data",
+    "method": "GET",
+    "authentication": {
+      "type": "apikey",
+      "config": {
+        "key": "X-API-Key",
+        "value": "sk-1234567890abcdef",
+        "in": "header"
+      }
+    }
+  }
+]

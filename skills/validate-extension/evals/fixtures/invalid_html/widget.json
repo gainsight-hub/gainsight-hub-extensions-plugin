@@ -1,0 +1,7 @@
+{
+  "version": "1.0.0",
+  "title": "Invalid HTML Widget",
+  "description": "Widget with full HTML document instead of fragment",
+  "category": "custom",
+  "source": { "path": "dist", "entry": "content.html" }
+}

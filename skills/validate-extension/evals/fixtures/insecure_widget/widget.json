@@ -1,0 +1,7 @@
+{
+  "version": "1.0.0",
+  "title": "Insecure Widget",
+  "description": "Widget with security issues",
+  "category": "custom",
+  "source": { "path": "dist", "entry": "content.html" }
+}
