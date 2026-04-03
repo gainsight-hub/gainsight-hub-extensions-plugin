@@ -1,0 +1,17 @@
+{
+  "description": "Auto-validate extension files on write/edit",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/validate.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
