@@ -1,0 +1,21 @@
+[
+  {"query": "Build me a widget that shows recent blog posts", "should_trigger": true},
+  {"query": "Create a new widget for our community page", "should_trigger": true},
+  {"query": "I need a script for analytics tracking", "should_trigger": true},
+  {"query": "Make a stylesheet that matches our brand", "should_trigger": true},
+  {"query": "Add a connector to the weather API", "should_trigger": true},
+  {"query": "I want to show our latest blog posts on the community", "should_trigger": true},
+  {"query": "Build a banner with a call to action button", "should_trigger": true},
+  {"query": "Create something that shows support metrics from our API", "should_trigger": true},
+  {"query": "Make the community look like our main website", "should_trigger": true},
+  {"query": "I need a widget that lets users submit feedback", "should_trigger": true},
+
+  {"query": "Write a Python API endpoint for user authentication", "should_trigger": false},
+  {"query": "Fix this React component's rendering bug", "should_trigger": false},
+  {"query": "Deploy our app to production", "should_trigger": false},
+  {"query": "How do connectors work in Insided?", "should_trigger": false},
+  {"query": "Validate my widget", "should_trigger": false},
+  {"query": "What auth types are available for connectors?", "should_trigger": false},
+  {"query": "Review this pull request", "should_trigger": false},
+  {"query": "Set up CI/CD for this project", "should_trigger": false}
+]

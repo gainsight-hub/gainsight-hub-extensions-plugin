@@ -1,0 +1,148 @@
+{
+  "skill_name": "build-extension",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Make a hello world widget",
+      "expected_output": "Creates a widget with valid structure (widget.json + dist/content.html), HTML fragment with heading and paragraph, runs registry build.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "creates-widget-json",
+          "text": "Creates a widget.json file with required fields (version, title, description, category, source)",
+          "type": "transcript"
+        },
+        {
+          "name": "creates-content-html",
+          "text": "Creates a dist/content.html file that is an HTML fragment (no <html>, <head>, <body> tags)",
+          "type": "transcript"
+        },
+        {
+          "name": "runs-registry-build",
+          "text": "Runs ./bin/build-registry.sh or ./bin/build-registry.sh --validate",
+          "type": "transcript"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I want to show our latest blog posts on the community",
+      "expected_output": "Asks clarifying questions about the data source (which blog API/RSS feed), identifies the need for a connector, asks what to display from each post. Does not immediately start building.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "asks-about-data-source",
+          "text": "Asks the user where the blog posts come from (which API, RSS feed, or service) before building",
+          "type": "transcript"
+        },
+        {
+          "name": "identifies-connector-need",
+          "text": "Identifies that this requires a connector for external data access",
+          "type": "transcript"
+        },
+        {
+          "name": "does-not-build-immediately",
+          "text": "Does NOT create files or write code before gathering requirements from the user",
+          "type": "transcript"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Build a banner widget, style it like https://stripe.com",
+      "expected_output": "Fetches stripe.com to extract design cues (colors, typography, layout). Creates a banner widget with styling inspired by the reference. Uses HTML fragment format.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "fetches-reference-url",
+          "text": "Uses WebFetch to retrieve the referenced URL (stripe.com) for design inspiration",
+          "type": "transcript"
+        },
+        {
+          "name": "extracts-design-cues",
+          "text": "Identifies or describes design elements from the reference (colors, fonts, or layout patterns)",
+          "type": "transcript"
+        },
+        {
+          "name": "creates-valid-widget",
+          "text": "Creates widget.json and dist/content.html with valid structure",
+          "type": "transcript"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Add analytics tracking to our community",
+      "expected_output": "Identifies this as a global script (not a widget). Asks about which analytics provider and which pages to target. Creates script.json with appropriate page targeting rules.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "identifies-script-type",
+          "text": "Identifies this as a global script rather than a widget",
+          "type": "transcript"
+        },
+        {
+          "name": "asks-about-targeting",
+          "text": "Asks which pages the script should load on, or which analytics provider to use",
+          "type": "transcript"
+        },
+        {
+          "name": "creates-script-structure",
+          "text": "Creates script.json and script.js in a scripts/<name>/ directory",
+          "type": "transcript"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Make the community match our brand colors",
+      "expected_output": "Identifies this as a global stylesheet. Asks about brand colors, typography, and which elements to target. Creates stylesheet.json with rules.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "identifies-stylesheet-type",
+          "text": "Identifies this as a global stylesheet rather than a widget",
+          "type": "transcript"
+        },
+        {
+          "name": "asks-about-brand",
+          "text": "Asks about specific brand colors, typography, or which elements to style",
+          "type": "transcript"
+        },
+        {
+          "name": "creates-stylesheet-structure",
+          "text": "Creates stylesheet.json and style.css in a stylesheets/<name>/ directory",
+          "type": "transcript"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Build a dashboard showing support metrics from our internal API at api.example.com/metrics. It requires an API key.",
+      "expected_output": "Creates a widget with a connector using apikey auth and get_secret(). Asks what metrics to display and how to visualize them. Uses configuration properties for customization.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "creates-connector-with-auth",
+          "text": "Creates connectors.json with apikey authentication type using get_secret() for the API key",
+          "type": "transcript"
+        },
+        {
+          "name": "asks-about-visualization",
+          "text": "Asks what metrics to show or how to visualize the data",
+          "type": "transcript"
+        },
+        {
+          "name": "uses-sdk-connector-execute",
+          "text": "Widget code calls sdk.connectors.execute() to fetch data from the connector",
+          "type": "transcript"
+        },
+        {
+          "name": "no-hardcoded-secrets",
+          "text": "Does NOT hardcode any API keys or secrets in the connector config — uses get_secret()",
+          "type": "transcript"
+        }
+      ]
+    }
+  ]
+}
