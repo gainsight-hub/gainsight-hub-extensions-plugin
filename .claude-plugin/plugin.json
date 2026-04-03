@@ -1,0 +1,11 @@
+{
+  "name": "gainsight-hub-extensions",
+  "version": "0.1.0",
+  "description": "Development experience for building widgets, stylesheets, scripts, and connectors for the Gainsight Customer Hub (Insided) Extensions framework",
+  "author": {
+    "name": "Bartosz Glowacki"
+  },
+  "repository": "https://github.com/gainsight-hub/gainsight-hub-extensions-plugin",
+  "license": "MIT",
+  "keywords": ["gainsight", "insided", "customer-hub", "widgets", "extensions"]
+}
