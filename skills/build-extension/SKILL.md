@@ -30,6 +30,8 @@ Ask the user which type of extension (or infer from context):
 - **Global script** — Page-level JavaScript injected on matching pages (`scripts/<name>/`)
 - **Global stylesheet** — Shared CSS applied on matching pages (`stylesheets/<name>/`)
 
+When presenting your questions to the user, always outline the planned extension structure (directory layout, config files, content files) so they understand what will be created. This helps them give better answers.
+
 ### Step 2: What should it do?
 
 Gather purpose and behavior:

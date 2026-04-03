@@ -18,8 +18,8 @@
           "type": "transcript"
         },
         {
-          "name": "runs-registry-build",
-          "text": "Runs ./bin/build-registry.sh or ./bin/build-registry.sh --validate",
+          "name": "mentions-registry-build",
+          "text": "Mentions or instructs running ./bin/build-registry.sh to rebuild/validate the registry",
           "type": "transcript"
         }
       ]
@@ -87,8 +87,8 @@
           "type": "transcript"
         },
         {
-          "name": "creates-script-structure",
-          "text": "Creates script.json and script.js in a scripts/<name>/ directory",
+          "name": "describes-script-structure",
+          "text": "Describes or plans the correct directory structure: scripts/<name>/ with script.json and script.js",
           "type": "transcript"
         }
       ]
@@ -110,8 +110,8 @@
           "type": "transcript"
         },
         {
-          "name": "creates-stylesheet-structure",
-          "text": "Creates stylesheet.json and style.css in a stylesheets/<name>/ directory",
+          "name": "describes-stylesheet-structure",
+          "text": "Describes or plans the correct directory structure: stylesheets/<name>/ with stylesheet.json and style.css",
           "type": "transcript"
         }
       ]
