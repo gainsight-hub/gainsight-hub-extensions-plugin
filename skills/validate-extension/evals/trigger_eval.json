@@ -1,0 +1,13 @@
+[
+  {"query": "Validate my widget", "should_trigger": true},
+  {"query": "Check this extension for errors", "should_trigger": true},
+  {"query": "Is my widget.json correct?", "should_trigger": true},
+  {"query": "Are there any issues with my connector config?", "should_trigger": true},
+  {"query": "Run validation on the blog_posts widget", "should_trigger": true},
+
+  {"query": "Build me a widget", "should_trigger": false},
+  {"query": "How do connectors work?", "should_trigger": false},
+  {"query": "Create a stylesheet for our community", "should_trigger": false},
+  {"query": "What auth types are available?", "should_trigger": false},
+  {"query": "Deploy this widget to production", "should_trigger": false}
+]

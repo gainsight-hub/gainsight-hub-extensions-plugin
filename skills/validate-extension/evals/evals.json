@@ -1,0 +1,82 @@
+{
+  "skill_name": "validate-extension",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Validate the broken_widget widget",
+      "expected_output": "Identifies missing required fields in widget.json, reports structured checklist.",
+      "files": [
+        "skills/validate-extension/evals/fixtures/broken_widget/widget.json",
+        "skills/validate-extension/evals/fixtures/broken_widget/dist/content.html"
+      ],
+      "assertions": [
+        {
+          "name": "checks-required-fields",
+          "text": "Identifies missing or invalid required fields in widget.json (version, title, description, category, source/content)",
+          "type": "transcript"
+        },
+        {
+          "name": "reports-structured-output",
+          "text": "Reports results in a structured format with categories (structure, schema, content, etc.)",
+          "type": "transcript"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Check the insecure_widget for issues",
+      "expected_output": "Identifies hardcoded secrets in connectors.json, flags document.querySelector usage, reports security issues.",
+      "files": [
+        "skills/validate-extension/evals/fixtures/insecure_widget/widget.json",
+        "skills/validate-extension/evals/fixtures/insecure_widget/dist/content.html",
+        "skills/validate-extension/evals/fixtures/insecure_widget/connectors.json"
+      ],
+      "assertions": [
+        {
+          "name": "flags-hardcoded-secrets",
+          "text": "Identifies hardcoded secrets or API keys in connectors.json and recommends get_secret()",
+          "type": "transcript"
+        },
+        {
+          "name": "flags-document-queryselector",
+          "text": "Identifies document.querySelector usage and recommends sdk.$() for Shadow DOM",
+          "type": "transcript"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Validate the invalid_html widget",
+      "expected_output": "Identifies <html>, <head>, or <body> tags in content.html and explains it must be an HTML fragment.",
+      "files": [
+        "skills/validate-extension/evals/fixtures/invalid_html/widget.json",
+        "skills/validate-extension/evals/fixtures/invalid_html/dist/content.html"
+      ],
+      "assertions": [
+        {
+          "name": "flags-non-fragment-html",
+          "text": "Identifies that content.html contains <html>, <head>, or <body> tags and must be an HTML fragment",
+          "type": "transcript"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Run validation on all widgets in this repo",
+      "expected_output": "Validates all widgets found in the widgets/ directory, reports per-widget results.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "discovers-all-widgets",
+          "text": "Scans the widgets/ directory to find all widgets rather than asking which one to validate",
+          "type": "transcript"
+        },
+        {
+          "name": "validates-each-widget",
+          "text": "Runs validation checks against each discovered widget and reports results per widget",
+          "type": "transcript"
+        }
+      ]
+    }
+  ]
+}
