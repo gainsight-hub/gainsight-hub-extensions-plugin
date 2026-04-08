@@ -57,11 +57,18 @@ def run_turn(session_id: str, prompt: str, work_dir: Path, resume: bool = False,
 
 
 def collect_outputs(work_dir: Path, output_dir: Path) -> list[str]:
-    """Find extension files created in the workspace and copy to outputs/."""
+    """Find extension files created in the workspace and copy flat into outputs/.
+
+    The eval viewer only reads immediate children of outputs/ (not recursive),
+    so we flatten: widget.json and content.html go directly into outputs/.
+    content.html is placed in outputs/dist/ to avoid the </script> viewer bug
+    (the viewer doesn't recurse into subdirs, so it won't try to embed it).
+    """
     outputs_dir = output_dir / "outputs"
     outputs_dir.mkdir(exist_ok=True)
     collected = []
 
+    # Strategy 1: look in standard extension dirs (widgets/<name>/, scripts/<name>/, etc.)
     for ext_dir_name in EXTENSION_DIRS:
         ext_dir = work_dir / ext_dir_name
         if not ext_dir.exists():
@@ -69,14 +76,45 @@ def collect_outputs(work_dir: Path, output_dir: Path) -> list[str]:
         for item in sorted(ext_dir.iterdir()):
             if not item.is_dir():
                 continue
-            # Copy the entire extension directory (e.g., widgets/my-widget/)
-            dest = outputs_dir / ext_dir_name / item.name
-            shutil.copytree(item, dest, dirs_exist_ok=True)
-            for f in sorted(dest.rglob("*")):
-                if f.is_file():
-                    collected.append(str(f.relative_to(outputs_dir)))
+            _collect_extension_files(item, outputs_dir, collected)
+
+    # Strategy 2: look at workspace root (baselines often create files here)
+    if not collected:
+        _collect_extension_files(work_dir, outputs_dir, collected)
 
     return collected
+
+
+def _collect_extension_files(src_dir: Path, outputs_dir: Path, collected: list[str]):
+    """Copy key extension files from src_dir flat into outputs/."""
+    # widget.json / script.json / stylesheet.json → outputs/
+    for config_name in ["widget.json", "script.json", "stylesheet.json"]:
+        config_file = src_dir / config_name
+        if config_file.exists():
+            shutil.copy2(config_file, outputs_dir / config_name)
+            collected.append(config_name)
+
+    # content.html → outputs/dist/ (subdirectory avoids </script> viewer bug)
+    for html_path in [src_dir / "dist" / "content.html", src_dir / "content.html"]:
+        if html_path.exists():
+            dist_dir = outputs_dir / "dist"
+            dist_dir.mkdir(exist_ok=True)
+            shutil.copy2(html_path, dist_dir / "content.html")
+            collected.append("dist/content.html")
+            break
+
+    # script.js / style.css → outputs/
+    for asset_name in ["script.js", "style.css"]:
+        asset_file = src_dir / asset_name
+        if asset_file.exists():
+            shutil.copy2(asset_file, outputs_dir / asset_name)
+            collected.append(asset_name)
+
+    # connectors.json → outputs/
+    connectors = src_dir / "connectors.json"
+    if connectors.exists():
+        shutil.copy2(connectors, outputs_dir / "connectors.json")
+        collected.append("connectors.json")
 
 
 def main():
