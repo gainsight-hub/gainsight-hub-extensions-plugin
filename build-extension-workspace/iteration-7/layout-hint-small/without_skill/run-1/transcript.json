@@ -1,0 +1,16 @@
+[
+  {
+    "turn": 1,
+    "user": "Build a widget that shows our current app version, keep it really small and unobtrusive",
+    "agent": "Done. The widget consists of two files:\n\n- **widget.json** \u2014 configurable `version_number` (default \"1.0.0\") and `badge_color` (default gray `#6b7280`)\n- **dist/content.html** \u2014 a tiny pill-shaped badge that renders as `v 1.0.0` in white text on a muted background\n\nIt's intentionally minimal: no JavaScript, no SDK dependency, just a compact inline badge with a 12px font and rounded-pill styling. Admins can update the version string and badge color through the widget configuration panel.\n",
+    "duration_seconds": 106.8,
+    "returncode": 0
+  },
+  {
+    "turn": 2,
+    "user": "Yeah a pill or badge sounds right. Just make it a configurable text property, go ahead and build it.",
+    "agent": "\n\nThe widget already has a configurable text property (`version_number`) and renders as a pill badge. It's built and ready \u2014 no changes needed since the current implementation matches what you described.\n",
+    "duration_seconds": 7.5,
+    "returncode": 0
+  }
+]

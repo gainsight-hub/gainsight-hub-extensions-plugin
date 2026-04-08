@@ -1,0 +1,100 @@
+<style>
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  .metric-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    border-left: 4px solid var(--accent);
+    transition: box-shadow 0.2s ease;
+  }
+
+  .metric-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  }
+
+  .metric-card--users { --accent: #4F46E5; }
+  .metric-card--nps { --accent: #059669; }
+  .metric-card--tickets { --accent: #D97706; }
+  .metric-card--response { --accent: #2563EB; }
+
+  .metric-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .metric-value {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+
+  .metric-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #6B7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+</style>
+
+<div class="metrics-grid">
+  <div class="metric-card metric-card--users">
+    <div class="metric-icon">👥</div>
+    <div class="metric-value" id="activeUsers">—</div>
+    <div class="metric-label">Active Users</div>
+  </div>
+
+  <div class="metric-card metric-card--nps">
+    <div class="metric-icon">📊</div>
+    <div class="metric-value" id="npsScore">—</div>
+    <div class="metric-label">NPS Score</div>
+  </div>
+
+  <div class="metric-card metric-card--tickets">
+    <div class="metric-icon">🎫</div>
+    <div class="metric-value" id="openTickets">—</div>
+    <div class="metric-label">Open Tickets</div>
+  </div>
+
+  <div class="metric-card metric-card--response">
+    <div class="metric-icon">⏱️</div>
+    <div class="metric-value" id="avgResponseTime">—</div>
+    <div class="metric-label">Avg Response Time</div>
+  </div>
+</div>
+
+<script>
+  function formatNumber(num) {
+    if (num >= 1000) {
+      return num.toLocaleString();
+    }
+    return num;
+  }
+
+  function render(props) {
+    var activeUsers = props.activeUsers || 0;
+    var npsScore = props.npsScore || 0;
+    var openTickets = props.openTickets || 0;
+    var avgResponseTime = props.avgResponseTime || 0;
+
+    document.getElementById('activeUsers').textContent = formatNumber(activeUsers);
+    document.getElementById('npsScore').textContent = npsScore;
+    document.getElementById('openTickets').textContent = formatNumber(openTickets);
+    document.getElementById('avgResponseTime').textContent = avgResponseTime + ' hrs';
+  }
+
+  if (window.__WIDGET_PROPS__) {
+    render(window.__WIDGET_PROPS__);
+  }
+</script>

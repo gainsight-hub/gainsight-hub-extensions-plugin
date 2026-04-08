@@ -1,0 +1,91 @@
+{
+  "version": "1.0.0",
+  "title": "Key Metrics Dashboard",
+  "description": "Displays key business metrics (active users, NPS, open tickets, response time) in a card grid layout with trend indicators.",
+  "category": "custom",
+  "source": {
+    "path": "dist",
+    "entry": "content.html"
+  },
+  "configuration": {
+    "properties": [
+      {
+        "name": "active_users",
+        "type": "number",
+        "label": "Active Users",
+        "defaultValue": 0,
+        "rules": { "required": true, "min": 0 }
+      },
+      {
+        "name": "active_users_trend",
+        "type": "number",
+        "label": "Active Users Trend (%)",
+        "defaultValue": 0
+      },
+      {
+        "name": "nps_score",
+        "type": "number",
+        "label": "NPS Score",
+        "defaultValue": 0,
+        "rules": { "required": true, "min": -100, "max": 100 }
+      },
+      {
+        "name": "nps_score_trend",
+        "type": "number",
+        "label": "NPS Score Trend (%)",
+        "defaultValue": 0
+      },
+      {
+        "name": "open_tickets",
+        "type": "number",
+        "label": "Open Tickets",
+        "defaultValue": 0,
+        "rules": { "required": true, "min": 0 }
+      },
+      {
+        "name": "open_tickets_trend",
+        "type": "number",
+        "label": "Open Tickets Trend (%)",
+        "defaultValue": 0
+      },
+      {
+        "name": "avg_response_time",
+        "type": "text",
+        "label": "Avg Response Time",
+        "defaultValue": "0h",
+        "rules": { "required": true }
+      },
+      {
+        "name": "avg_response_time_trend",
+        "type": "number",
+        "label": "Avg Response Time Trend (%)",
+        "defaultValue": 0
+      },
+      {
+        "name": "heading_title",
+        "type": "text",
+        "label": "Dashboard Title",
+        "defaultValue": "Key Metrics",
+        "rules": { "maxLength": 100 }
+      },
+      {
+        "name": "accent_color",
+        "type": "color",
+        "label": "Accent Color",
+        "defaultValue": "#4F46E5"
+      }
+    ]
+  },
+  "defaultConfig": {
+    "active_users": 1250,
+    "active_users_trend": 12,
+    "nps_score": 72,
+    "nps_score_trend": 5,
+    "open_tickets": 23,
+    "open_tickets_trend": -8,
+    "avg_response_time": "2.4h",
+    "avg_response_time_trend": -15,
+    "heading_title": "Key Metrics",
+    "accent_color": "#4F46E5"
+  }
+}

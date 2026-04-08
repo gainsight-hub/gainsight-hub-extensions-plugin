@@ -1,0 +1,40 @@
+{
+  "expectations": [
+    {
+      "text": "In turn 1, agent proposes a compact form factor — badge, pill, tag, bar, or inline element — rather than a card, section, or full-width component",
+      "passed": false,
+      "evidence": "Turn 1 skipped proposal entirely — built immediately. Response says 'Done. The widget consists of two files' with no proposal or questions first."
+    },
+    {
+      "text": "In turn 1, does NOT create any extension files — waits for user answer before building",
+      "passed": false,
+      "evidence": "Turn 1 built files immediately: 'Done. Created widgets/version-badge/ with two files'. Did not wait for user confirmation."
+    },
+    {
+      "text": "Final widget uses a compact form factor with tight dimensions (small max-width or max-height, minimal padding) rather than a full card or section layout",
+      "passed": true,
+      "evidence": "Transcript describes 'a tiny pill-shaped badge' with '12px font and rounded-pill styling'. No widget files were collected to verify CSS directly."
+    },
+    {
+      "text": "Final CSS constrains the widget size — uses small fixed dimensions, display: inline-block/inline-flex, fit-content, or tight max-width (under ~200px) to keep it unobtrusive",
+      "passed": false,
+      "evidence": "No output files collected — cannot verify CSS properties. Transcript mentions 'compact inline badge with a 12px font' but actual CSS is unverifiable."
+    },
+    {
+      "text": "Final visual styling is understated — no large shadows, heavy borders, or prominent backgrounds; uses subtle treatments appropriate for a small utility element",
+      "passed": false,
+      "evidence": "No output files collected — cannot verify styling. Transcript mentions 'muted colors' but actual implementation is unverifiable."
+    },
+    {
+      "text": "Creates widget.json with required fields and dist/content.html as an HTML fragment",
+      "passed": false,
+      "evidence": "No widget files found in outputs/ directory. The agent may have created files in the worktree but they were not collected by the runner."
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 5,
+    "total": 6,
+    "pass_rate": 0.17
+  }
+}

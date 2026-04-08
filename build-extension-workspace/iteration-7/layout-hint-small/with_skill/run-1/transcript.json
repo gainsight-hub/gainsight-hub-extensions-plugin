@@ -1,0 +1,16 @@
+[
+  {
+    "turn": 1,
+    "user": "Build a widget that shows our current app version, keep it really small and unobtrusive",
+    "agent": "Got the docs. Here's what I'm thinking:\n\n**Widget: `app-version`** \u2014 a tiny pill/badge that just shows something like \"v2.4.1\" in muted text. Think of it like the version labels you see tucked in a footer corner \u2014 small font, low contrast, doesn't compete for attention.\n\n```\nwidgets/app-version/\n\u251c\u2500\u2500 widget.json\n\u2514\u2500\u2500 dist/\n    \u2514\u2500\u2500 content.html\n```\n\nThe version string would come from a **text configuration property** \u2014 an admin sets it in the No-Code Builder (e.g., \"2.4.1\"). Simple, no API needed.\n\nTwo quick questions before I build:\n\n1. **Version source** \u2014 Is a config property fine, or does the version need to come from an API/connector?\n2. **Prefix style** \u2014 Do you want a \"v\" prefix (like `v2.4.1`) or a label (like `Version 2.4.1`), or just the raw number?\n",
+    "duration_seconds": 78.7,
+    "returncode": 0
+  },
+  {
+    "turn": 2,
+    "user": "Yeah a pill or badge sounds right. Just make it a configurable text property, go ahead and build it.",
+    "agent": "Widget is built. Here's what was created:\n\n```\nworkspace/\n\u251c\u2500\u2500 widget_registry.json\n\u2514\u2500\u2500 widgets/app-version/\n    \u251c\u2500\u2500 widget.json\n    \u2514\u2500\u2500 dist/\n        \u2514\u2500\u2500 content.html\n```\n\n**What it does:**\n- Renders a tiny pill badge showing **v1.0.0** (or whatever version the admin sets)\n- 11px font, rounded-pill shape, muted colors \u2014 stays out of the way\n- Starts at 75% opacity, full opacity on hover\n- Uses community design tokens (`--config--main-color-*`) so it adapts to any theme\n- Version text is selectable (`user-select: all`) for easy copy\n- Single config property: **Version** (text, max 20 chars)\n",
+    "duration_seconds": 50.0,
+    "returncode": 0
+  }
+]

@@ -1,0 +1,32 @@
+{
+  "title": "Key Metrics Dashboard",
+  "description": "At-a-glance dashboard showing key metrics in a 2x2 grid layout",
+  "component": "MetricsDashboard",
+  "icon": "dashboard",
+  "properties": [
+    {
+      "name": "activeUsers",
+      "label": "Active Users",
+      "type": "number",
+      "default": 0
+    },
+    {
+      "name": "npsScore",
+      "label": "NPS Score",
+      "type": "number",
+      "default": 0
+    },
+    {
+      "name": "openTickets",
+      "label": "Open Tickets",
+      "type": "number",
+      "default": 0
+    },
+    {
+      "name": "avgResponseTime",
+      "label": "Avg Response Time (hrs)",
+      "type": "number",
+      "default": 0
+    }
+  ]
+}

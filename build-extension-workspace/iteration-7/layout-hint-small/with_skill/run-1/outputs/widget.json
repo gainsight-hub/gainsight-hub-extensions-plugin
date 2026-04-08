@@ -1,0 +1,24 @@
+{
+  "version": "1.0.0",
+  "title": "App Version Badge",
+  "description": "A small, unobtrusive pill badge that displays the current app version.",
+  "category": "custom",
+  "source": {
+    "path": "dist",
+    "entry": "content.html"
+  },
+  "configuration": {
+    "properties": [
+      {
+        "name": "version_text",
+        "type": "text",
+        "label": "Version",
+        "defaultValue": "1.0.0",
+        "rules": {
+          "required": true,
+          "maxLength": 20
+        }
+      }
+    ]
+  }
+}

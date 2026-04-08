@@ -1,0 +1,15 @@
+{
+  "total_duration_seconds": 163.9,
+  "duration_ms": 163900,
+  "turns": 2,
+  "per_turn": [
+    {
+      "turn": 1,
+      "duration_seconds": 61.1
+    },
+    {
+      "turn": 2,
+      "duration_seconds": 102.8
+    }
+  ]
+}

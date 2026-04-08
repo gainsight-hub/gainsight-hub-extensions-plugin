@@ -1,0 +1,16 @@
+[
+  {
+    "turn": 1,
+    "user": "I need to see all our key metrics at a glance",
+    "agent": "A metrics dashboard is a great use case for a Hub extension. To make it truly \"at a glance,\" I'd recommend a **2x2 grid layout** \u2014 each metric gets its own card with:\n\n- **Large, prominent number** as the focal point\n- **Smaller label** underneath identifying the metric\n- **Color accent** per card to visually differentiate metrics\n- Optional trend indicator (up/down arrow)\n\nSomething like:\n\n```\n\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510  \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502     1,247    \u2502  \u2502      72      \u2502\n\u2502  Active Users\u2502  \u2502   NPS Score  \u2502\n\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518  \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510  \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502      34      \u2502  \u2502    2.4 hrs   \u2502\n\u2502 Open Tickets \u2502  \u2502  Resp. Time  \u2502\n\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518  \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n```\n\nThis grid approach keeps everything scannable \u2014 you can read all four metrics in under two seconds without scrolling.\n\nWhat specific metrics do you want to track? And should they pull from live data or be configurable static values you update manually?\n",
+    "duration_seconds": 29.3,
+    "returncode": 0
+  },
+  {
+    "turn": 2,
+    "user": "Active users, NPS score, open tickets, and avg response time. Just make them configurable number properties, build it.",
+    "agent": "Done. Here's what was built:\n\n**`widget.json`** \u2014 4 configurable number properties:\n- `activeUsers`, `npsScore`, `openTickets`, `avgResponseTime`\n\n**`dist/content.html`** \u2014 2x2 CSS grid dashboard:\n- Each metric gets a color-coded card (indigo, green, amber, blue) with a left border accent\n- Values are displayed at 36px bold \u2014 the dominant visual element for quick scanning\n- Labels are smaller, uppercase, muted gray underneath\n- Icons provide additional visual differentiation\n- Cards have subtle hover elevation for interactivity\n- Numbers over 1,000 get locale-formatted with commas\n",
+    "duration_seconds": 35.4,
+    "returncode": 0
+  }
+]

@@ -1,0 +1,286 @@
+<style>
+  :host {
+    --accent: var(--config--main-color-brand, {{ accent_color }});
+    --bg: var(--config--main-color-background, #ffffff);
+    --text: var(--config--main-color-text, #1f2937);
+    --text-secondary: #6b7280;
+    --card-bg: #ffffff;
+    --card-border: #e5e7eb;
+    --positive: #059669;
+    --negative: #dc2626;
+    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .dashboard {
+    font-family: var(--font);
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .dashboard-header {
+    margin-bottom: 24px;
+  }
+
+  .dashboard-title {
+    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  .dashboard-subtitle {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  @media (max-width: 900px) {
+    .metrics-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .metrics-grid {
+      grid-template-columns: 1fr;
+    }
+    .dashboard {
+      padding: 16px;
+    }
+  }
+
+  .metric-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+  }
+
+  .metric-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+  }
+
+  .metric-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent);
+    opacity: 0.8;
+  }
+
+  .metric-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    font-size: 1.125rem;
+  }
+
+  .metric-icon.users { background: rgba(99, 102, 241, 0.1); color: #6366f1; }
+  .metric-icon.nps { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+  .metric-icon.tickets { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
+  .metric-icon.time { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+
+  .metric-label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+
+  .metric-value {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .metric-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 12px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .metric-trend.positive {
+    background: rgba(5, 150, 105, 0.1);
+    color: var(--positive);
+  }
+
+  .metric-trend.negative {
+    background: rgba(220, 38, 38, 0.1);
+    color: var(--negative);
+  }
+
+  .metric-trend.neutral {
+    background: rgba(107, 114, 128, 0.1);
+    color: var(--text-secondary);
+  }
+
+  .trend-arrow {
+    font-size: 0.625rem;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+  }
+</style>
+
+<div class="dashboard">
+  <div class="dashboard-header">
+    <div class="dashboard-title">{{ heading_title }}</div>
+    <div class="dashboard-subtitle">Overview of your key performance indicators</div>
+  </div>
+
+  <div class="metrics-grid">
+    <div class="metric-card" data-metric="active_users">
+      <div class="metric-icon users">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      </div>
+      <div class="metric-label">Active Users</div>
+      <div class="metric-value" data-field="active_users">{{ active_users }}</div>
+      <div class="metric-trend" data-trend="active_users_trend" data-value="{{ active_users_trend }}">
+        <span class="trend-arrow"></span>
+        <span class="trend-text"></span>
+      </div>
+    </div>
+
+    <div class="metric-card" data-metric="nps_score">
+      <div class="metric-icon nps">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+      </div>
+      <div class="metric-label">NPS Score</div>
+      <div class="metric-value" data-field="nps_score">{{ nps_score }}</div>
+      <div class="metric-trend" data-trend="nps_score_trend" data-value="{{ nps_score_trend }}">
+        <span class="trend-arrow"></span>
+        <span class="trend-text"></span>
+      </div>
+    </div>
+
+    <div class="metric-card" data-metric="open_tickets">
+      <div class="metric-icon tickets">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 5v2"/>
+          <path d="M15 11v2"/>
+          <path d="M15 17v2"/>
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <path d="M21 9H3"/>
+          <path d="M21 15H3"/>
+        </svg>
+      </div>
+      <div class="metric-label">Open Tickets</div>
+      <div class="metric-value" data-field="open_tickets">{{ open_tickets }}</div>
+      <div class="metric-trend" data-trend="open_tickets_trend" data-value="{{ open_tickets_trend }}" data-invert="true">
+        <span class="trend-arrow"></span>
+        <span class="trend-text"></span>
+      </div>
+    </div>
+
+    <div class="metric-card" data-metric="avg_response_time">
+      <div class="metric-icon time">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </div>
+      <div class="metric-label">Avg Response Time</div>
+      <div class="metric-value" data-field="avg_response_time">{{ avg_response_time }}</div>
+      <div class="metric-trend" data-trend="avg_response_time_trend" data-value="{{ avg_response_time_trend }}" data-invert="true">
+        <span class="trend-arrow"></span>
+        <span class="trend-text"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const root = document.currentScript?.getRootNode() || document;
+
+    function formatNumber(val) {
+      const num = Number(val);
+      if (isNaN(num)) return val;
+      if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+      if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+      return num.toLocaleString();
+    }
+
+    function updateTrends() {
+      const trends = root.querySelectorAll('[data-trend]');
+      trends.forEach(function (el) {
+        const raw = parseFloat(el.getAttribute('data-value')) || 0;
+        const invert = el.getAttribute('data-invert') === 'true';
+        const arrow = el.querySelector('.trend-arrow');
+        const text = el.querySelector('.trend-text');
+
+        if (raw === 0) {
+          el.className = 'metric-trend neutral';
+          arrow.textContent = '—';
+          text.textContent = 'No change';
+          return;
+        }
+
+        var isPositiveDirection = raw > 0;
+        if (invert) isPositiveDirection = !isPositiveDirection;
+
+        el.className = 'metric-trend ' + (isPositiveDirection ? 'positive' : 'negative');
+        arrow.textContent = raw > 0 ? '\u25B2' : '\u25BC';
+        text.textContent = Math.abs(raw) + '% vs last period';
+      });
+    }
+
+    function formatValues() {
+      var valueEl = root.querySelector('[data-field="active_users"]');
+      if (valueEl) {
+        var raw = valueEl.textContent.trim();
+        var formatted = formatNumber(raw);
+        if (formatted !== raw) valueEl.textContent = formatted;
+      }
+    }
+
+    updateTrends();
+    formatValues();
+  })();
+</script>

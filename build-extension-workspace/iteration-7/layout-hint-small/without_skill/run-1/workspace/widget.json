@@ -1,0 +1,27 @@
+{
+  "version": "1.0.0",
+  "title": "App Version Badge",
+  "description": "A small, unobtrusive badge that displays the current app version.",
+  "category": "custom",
+  "source": {
+    "path": "dist",
+    "entry": "content.html"
+  },
+  "configuration": {
+    "properties": [
+      {
+        "name": "version_number",
+        "type": "text",
+        "label": "Version Number",
+        "defaultValue": "1.0.0",
+        "rules": { "required": true, "maxLength": 20 }
+      },
+      {
+        "name": "badge_color",
+        "type": "color",
+        "label": "Badge Color",
+        "defaultValue": "#6b7280"
+      }
+    ]
+  }
+}

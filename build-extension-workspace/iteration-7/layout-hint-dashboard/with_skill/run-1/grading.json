@@ -1,0 +1,45 @@
+{
+  "expectations": [
+    {
+      "text": "In turn 1, agent proposes a multi-column, grid, or dashboard-style layout for displaying multiple metrics — not a single stacked list",
+      "passed": true,
+      "evidence": "Turn 1: 'a card grid layout: each metric gets its own card with the value prominently displayed... Something like 3-4 cards in a row that collapse to 2 columns on mobile.'"
+    },
+    {
+      "text": "In turn 1, does NOT create any extension files — waits for user answer before building",
+      "passed": true,
+      "evidence": "Turn 1 only proposes design and asks 3 questions. Files are created in Turn 2 after user specifies metrics."
+    },
+    {
+      "text": "Final layout uses CSS grid, multi-column flexbox (flex-wrap), or explicit column structure to display metrics side-by-side rather than a single vertical stack",
+      "passed": true,
+      "evidence": "content.html uses display: grid with grid-template-columns: repeat(4, 1fr), responsive breakpoints at 900px (2-col) and 480px (1-col)."
+    },
+    {
+      "text": "Final widget shows 4 distinct metrics (active users, NPS score, open tickets, avg response time)",
+      "passed": true,
+      "evidence": "All 4 metric cards present in HTML: Active Users, NPS Score, Open Tickets, Avg Response Time. Each with distinct icon, color coding, and trend indicator."
+    },
+    {
+      "text": "Each metric has intentional visual treatment — large prominent number with smaller label, color coding, icon, or trend indicator",
+      "passed": true,
+      "evidence": "Each card has: colored SVG icon in tinted background, uppercase label (0.8125rem), large value (clamp 1.5-2rem, 700 weight), color-coded trend badge with arrow. 4 distinct color themes (indigo, green, amber, blue)."
+    },
+    {
+      "text": "Layout is designed for quick scanning — metric values are visually dominant (larger font-size or bolder weight) over labels and secondary info",
+      "passed": true,
+      "evidence": "Values: clamp(1.5rem, 3vw, 2rem) font-weight: 700. Labels: 0.8125rem font-weight: 500 in muted gray. Trend badges: 0.75rem. Clear visual hierarchy."
+    },
+    {
+      "text": "Creates widget.json with required fields and dist/content.html as an HTML fragment",
+      "passed": true,
+      "evidence": "Both files exist in outputs/widgets/metrics-dashboard/. HTML is a fragment with <style>, <div>, and <script> — no <html>/<head>/<body> wrappers."
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 0,
+    "total": 7,
+    "pass_rate": 1.0
+  }
+}

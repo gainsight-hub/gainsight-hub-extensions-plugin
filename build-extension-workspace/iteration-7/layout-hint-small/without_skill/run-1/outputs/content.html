@@ -1,0 +1,35 @@
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .version-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    background-color: {{ badge_color }};
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 12px;
+    line-height: 1;
+    color: #ffffff;
+    white-space: nowrap;
+  }
+
+  .version-badge__label {
+    opacity: 0.85;
+    font-weight: 500;
+  }
+
+  .version-badge__number {
+    font-weight: 700;
+  }
+</style>
+
+<span class="version-badge">
+  <span class="version-badge__label">v</span>
+  <span class="version-badge__number">{{ version_number }}</span>
+</span>

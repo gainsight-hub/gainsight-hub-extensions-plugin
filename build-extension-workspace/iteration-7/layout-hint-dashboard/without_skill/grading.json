@@ -1,0 +1,45 @@
+{
+  "expectations": [
+    {
+      "text": "In turn 1, agent proposes a multi-column, grid, or dashboard-style layout for displaying multiple metrics — not a single stacked list",
+      "passed": true,
+      "evidence": "Turn 1: 'I'd recommend a 2x2 grid layout — each metric gets its own card' with ASCII diagram showing the grid. Clear grid proposal."
+    },
+    {
+      "text": "In turn 1, does NOT create any extension files — waits for user answer before building",
+      "passed": true,
+      "evidence": "Turn 1 only proposes design and asks questions about metrics and data source. No files created until Turn 2."
+    },
+    {
+      "text": "Final layout uses CSS grid, multi-column flexbox (flex-wrap), or explicit column structure to display metrics side-by-side rather than a single vertical stack",
+      "passed": false,
+      "evidence": "No output files collected — cannot verify CSS. Transcript mentions '2x2 CSS grid dashboard' but actual implementation is unverifiable."
+    },
+    {
+      "text": "Final widget shows 4 distinct metrics (active users, NPS score, open tickets, avg response time)",
+      "passed": false,
+      "evidence": "No output files collected. Transcript claims 4 configurable number properties but cannot verify actual HTML output."
+    },
+    {
+      "text": "Each metric has intentional visual treatment — large prominent number with smaller label, color coding, icon, or trend indicator",
+      "passed": false,
+      "evidence": "No output files collected. Transcript mentions 'Values are displayed at 36px bold' and 'color-coded card' but cannot verify."
+    },
+    {
+      "text": "Layout is designed for quick scanning — metric values are visually dominant (larger font-size or bolder weight) over labels and secondary info",
+      "passed": false,
+      "evidence": "No output files collected. Transcript describes hierarchy but actual CSS cannot be verified."
+    },
+    {
+      "text": "Creates widget.json with required fields and dist/content.html as an HTML fragment",
+      "passed": false,
+      "evidence": "No widget files found in outputs/ directory. Files were not collected by the runner."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 5,
+    "total": 7,
+    "pass_rate": 0.29
+  }
+}

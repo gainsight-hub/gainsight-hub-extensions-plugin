@@ -1,0 +1,45 @@
+{
+  "eval_id": 18,
+  "eval_name": "layout-hint-dashboard",
+  "prompt": "I need to see all our key metrics at a glance",
+  "turns": [
+    "Active users, NPS score, open tickets, and avg response time. Just make them configurable number properties, build it."
+  ],
+  "assertions": [
+    {
+      "name": "turn1-proposes-grid-layout",
+      "text": "In turn 1, agent proposes a multi-column, grid, or dashboard-style layout for displaying multiple metrics \u2014 not a single stacked list",
+      "type": "transcript"
+    },
+    {
+      "name": "turn1-no-premature-build",
+      "text": "In turn 1, does NOT create any extension files \u2014 waits for user answer before building",
+      "type": "transcript"
+    },
+    {
+      "name": "grid-or-multicolumn",
+      "text": "Final layout uses CSS grid, multi-column flexbox (flex-wrap), or explicit column structure to display metrics side-by-side rather than a single vertical stack",
+      "type": "transcript"
+    },
+    {
+      "name": "multiple-metrics",
+      "text": "Final widget shows 4 distinct metrics (active users, NPS score, open tickets, avg response time)",
+      "type": "transcript"
+    },
+    {
+      "name": "metric-visual-treatment",
+      "text": "Each metric has intentional visual treatment \u2014 large prominent number with smaller label, color coding, icon, or trend indicator",
+      "type": "transcript"
+    },
+    {
+      "name": "scannable-hierarchy",
+      "text": "Layout is designed for quick scanning \u2014 metric values are visually dominant (larger font-size or bolder weight) over labels and secondary info",
+      "type": "transcript"
+    },
+    {
+      "name": "creates-valid-structure",
+      "text": "Creates widget.json with required fields and dist/content.html as an HTML fragment",
+      "type": "transcript"
+    }
+  ]
+}

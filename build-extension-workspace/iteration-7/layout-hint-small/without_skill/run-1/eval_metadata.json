@@ -1,0 +1,40 @@
+{
+  "eval_id": 17,
+  "eval_name": "layout-hint-small",
+  "prompt": "Build a widget that shows our current app version, keep it really small and unobtrusive",
+  "turns": [
+    "Yeah a pill or badge sounds right. Just make it a configurable text property, go ahead and build it."
+  ],
+  "assertions": [
+    {
+      "name": "turn1-proposes-compact-layout",
+      "text": "In turn 1, agent proposes a compact form factor \u2014 badge, pill, tag, bar, or inline element \u2014 rather than a card, section, or full-width component",
+      "type": "transcript"
+    },
+    {
+      "name": "turn1-no-premature-build",
+      "text": "In turn 1, does NOT create any extension files \u2014 waits for user answer before building",
+      "type": "transcript"
+    },
+    {
+      "name": "compact-layout",
+      "text": "Final widget uses a compact form factor with tight dimensions (small max-width or max-height, minimal padding) rather than a full card or section layout",
+      "type": "transcript"
+    },
+    {
+      "name": "minimal-footprint",
+      "text": "Final CSS constrains the widget size \u2014 uses small fixed dimensions, display: inline-block/inline-flex, fit-content, or tight max-width (under ~200px) to keep it unobtrusive",
+      "type": "transcript"
+    },
+    {
+      "name": "restrained-styling",
+      "text": "Final visual styling is understated \u2014 no large shadows, heavy borders, or prominent backgrounds; uses subtle treatments appropriate for a small utility element",
+      "type": "transcript"
+    },
+    {
+      "name": "creates-valid-structure",
+      "text": "Creates widget.json with required fields and dist/content.html as an HTML fragment",
+      "type": "transcript"
+    }
+  ]
+}

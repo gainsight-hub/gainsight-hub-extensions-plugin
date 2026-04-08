@@ -1,0 +1,40 @@
+{
+  "expectations": [
+    {
+      "text": "In turn 1, agent proposes a compact form factor — badge, pill, tag, bar, or inline element — rather than a card, section, or full-width component",
+      "passed": true,
+      "evidence": "Turn 1: 'a tiny pill/badge that just shows something like \"v2.4.1\" in muted text. Think of it like the version labels you see tucked in a footer corner — small font, low contrast, doesn't compete for attention.'"
+    },
+    {
+      "text": "In turn 1, does NOT create any extension files — waits for user answer before building",
+      "passed": true,
+      "evidence": "Turn 1 only proposes and asks 2 questions. Files are created in Turn 2 after user confirms."
+    },
+    {
+      "text": "Final widget uses a compact form factor with tight dimensions (small max-width or max-height, minimal padding) rather than a full card or section layout",
+      "passed": true,
+      "evidence": "content.html uses display: inline-flex, padding: 2px 8px, font-size: 0.6875rem (11px), border-radius: 9999px (pill shape). Extremely compact."
+    },
+    {
+      "text": "Final CSS constrains the widget size — uses small fixed dimensions, display: inline-block/inline-flex, fit-content, or tight max-width (under ~200px) to keep it unobtrusive",
+      "passed": true,
+      "evidence": "CSS uses display: inline-flex which constrains to content width. Padding is 2px 8px, font is 11px. No explicit max-width needed since inline-flex naturally fits content."
+    },
+    {
+      "text": "Final visual styling is understated — no large shadows, heavy borders, or prominent backgrounds; uses subtle treatments appropriate for a small utility element",
+      "passed": true,
+      "evidence": "Uses border: 1px solid, opacity: 0.75 (fades to background), muted color tokens, no box-shadow. Hover only raises opacity to 1. Very restrained."
+    },
+    {
+      "text": "Creates widget.json with required fields and dist/content.html as an HTML fragment",
+      "passed": true,
+      "evidence": "widget.json and dist/content.html both exist in outputs/widgets/app-version/. HTML is a fragment (no <html>/<head>/<body>), just <style> and <span> elements."
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "pass_rate": 1.0
+  }
+}

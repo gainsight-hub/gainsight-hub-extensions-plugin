@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Key Metrics Dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: #333;
+      background: #fff;
+      padding: 16px;
+    }
+
+    h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #1a1a1a;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .metric-card {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .metric-label {
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+
+    .metric-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1a1a1a;
+      line-height: 1.2;
+    }
+
+    .metric-change {
+      font-size: 12px;
+      font-weight: 500;
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .change-positive {
+      color: #16a34a;
+    }
+
+    .change-negative {
+      color: #dc2626;
+    }
+
+    .metric-bar {
+      margin-top: 8px;
+      height: 4px;
+      background: #e0e0e0;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .metric-bar-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+
+    .bar-blue { background: #3b82f6; }
+    .bar-green { background: #22c55e; }
+    .bar-orange { background: #f59e0b; }
+    .bar-purple { background: #8b5cf6; }
+  </style>
+</head>
+<body>
+  <h2>Key Metrics</h2>
+  <div class="metrics-grid" id="metrics-container"></div>
+
+  <script>
+    const metrics = [
+      {
+        label: "Monthly Revenue",
+        value: "$124,500",
+        change: "+12.3%",
+        positive: true,
+        barPercent: 78,
+        barClass: "bar-blue"
+      },
+      {
+        label: "Active Users",
+        value: "8,432",
+        change: "+5.7%",
+        positive: true,
+        barPercent: 84,
+        barClass: "bar-green"
+      },
+      {
+        label: "Churn Rate",
+        value: "2.4%",
+        change: "-0.3%",
+        positive: true,
+        barPercent: 24,
+        barClass: "bar-orange"
+      },
+      {
+        label: "NPS Score",
+        value: "72",
+        change: "+4",
+        positive: true,
+        barPercent: 72,
+        barClass: "bar-purple"
+      }
+    ];
+
+    function renderMetrics() {
+      const container = document.getElementById("metrics-container");
+      container.innerHTML = metrics.map(metric => `
+        <div class="metric-card">
+          <div class="metric-label">${metric.label}</div>
+          <div class="metric-value">${metric.value}</div>
+          <div class="metric-change ${metric.positive ? 'change-positive' : 'change-negative'}">
+            <span>${metric.positive ? '&#9650;' : '&#9660;'}</span>
+            <span>${metric.change} vs last month</span>
+          </div>
+          <div class="metric-bar">
+            <div class="metric-bar-fill ${metric.barClass}" style="width: ${metric.barPercent}%"></div>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    renderMetrics();
+  </script>
+</body>
+</html>

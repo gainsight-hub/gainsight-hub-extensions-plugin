@@ -1,0 +1,130 @@
+{
+  "metadata": {
+    "skill_name": "build-extension",
+    "skill_path": "skills/build-extension",
+    "timestamp": "2026-04-08T12:00:00Z",
+    "evals_run": [17, 18],
+    "runs_per_configuration": 1
+  },
+  "runs": [
+    {
+      "eval_id": 17,
+      "eval_name": "layout-hint-small",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": 128.7,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "In turn 1, agent proposes a compact form factor (badge, pill, tag, bar)", "passed": true, "evidence": "Proposed 'tiny pill/badge' in turn 1"},
+        {"text": "In turn 1, does NOT create any extension files", "passed": true, "evidence": "Only proposed and asked questions in turn 1"},
+        {"text": "Final widget uses a compact form factor with tight dimensions", "passed": true, "evidence": "inline-flex, 2px 8px padding, 11px font, pill shape"},
+        {"text": "Final CSS constrains widget size (inline-flex, fit-content, tight max-width)", "passed": true, "evidence": "display: inline-flex naturally constrains to content width"},
+        {"text": "Final visual styling is understated", "passed": true, "evidence": "opacity: 0.75, 1px border, no box-shadow, muted colors"},
+        {"text": "Creates widget.json and dist/content.html as HTML fragment", "passed": true, "evidence": "Both files present, valid fragment"}
+      ]
+    },
+    {
+      "eval_id": 17,
+      "eval_name": "layout-hint-small",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.17,
+        "passed": 1,
+        "failed": 5,
+        "total": 6,
+        "time_seconds": 114.3,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "In turn 1, agent proposes a compact form factor (badge, pill, tag, bar)", "passed": false, "evidence": "Built immediately, no proposal"},
+        {"text": "In turn 1, does NOT create any extension files", "passed": false, "evidence": "Created files in turn 1"},
+        {"text": "Final widget uses a compact form factor with tight dimensions", "passed": true, "evidence": "Described as pill-shaped badge with 12px font"},
+        {"text": "Final CSS constrains widget size (inline-flex, fit-content, tight max-width)", "passed": false, "evidence": "No output files to verify"},
+        {"text": "Final visual styling is understated", "passed": false, "evidence": "No output files to verify"},
+        {"text": "Creates widget.json and dist/content.html as HTML fragment", "passed": false, "evidence": "No files collected in outputs/"}
+      ]
+    },
+    {
+      "eval_id": 18,
+      "eval_name": "layout-hint-dashboard",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 7,
+        "failed": 0,
+        "total": 7,
+        "time_seconds": 163.9,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "In turn 1, proposes multi-column grid/dashboard layout", "passed": true, "evidence": "Proposed 'card grid layout: 3-4 cards in a row'"},
+        {"text": "In turn 1, does NOT create any extension files", "passed": true, "evidence": "Only proposed and asked 3 questions in turn 1"},
+        {"text": "Final layout uses CSS grid or multi-column flexbox", "passed": true, "evidence": "grid-template-columns: repeat(4, 1fr) with responsive breakpoints"},
+        {"text": "Final widget shows 4 distinct metrics", "passed": true, "evidence": "All 4 metrics present with distinct icons and colors"},
+        {"text": "Each metric has intentional visual treatment", "passed": true, "evidence": "SVG icons, color-coded cards, large values, trend badges"},
+        {"text": "Layout designed for quick scanning — values visually dominant", "passed": true, "evidence": "Values: 2rem/700 weight vs labels: 0.8125rem/500 weight"},
+        {"text": "Creates widget.json and dist/content.html as HTML fragment", "passed": true, "evidence": "Both files present, valid fragment"}
+      ]
+    },
+    {
+      "eval_id": 18,
+      "eval_name": "layout-hint-dashboard",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.29,
+        "passed": 2,
+        "failed": 5,
+        "total": 7,
+        "time_seconds": 64.7,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "In turn 1, proposes multi-column grid/dashboard layout", "passed": true, "evidence": "Proposed '2x2 grid layout' with ASCII diagram"},
+        {"text": "In turn 1, does NOT create any extension files", "passed": true, "evidence": "Only proposed and asked questions in turn 1"},
+        {"text": "Final layout uses CSS grid or multi-column flexbox", "passed": false, "evidence": "No output files to verify CSS"},
+        {"text": "Final widget shows 4 distinct metrics", "passed": false, "evidence": "No output files to verify"},
+        {"text": "Each metric has intentional visual treatment", "passed": false, "evidence": "No output files to verify"},
+        {"text": "Layout designed for quick scanning — values visually dominant", "passed": false, "evidence": "No output files to verify"},
+        {"text": "Creates widget.json and dist/content.html as HTML fragment", "passed": false, "evidence": "No files collected in outputs/"}
+      ]
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {"mean": 1.0, "stddev": 0.0, "min": 1.0, "max": 1.0},
+      "time_seconds": {"mean": 146.3, "stddev": 17.6, "min": 128.7, "max": 163.9}
+    },
+    "without_skill": {
+      "pass_rate": {"mean": 0.23, "stddev": 0.06, "min": 0.17, "max": 0.29},
+      "time_seconds": {"mean": 89.5, "stddev": 24.8, "min": 64.7, "max": 114.3}
+    },
+    "delta": {
+      "pass_rate": "+0.77",
+      "time_seconds": "+56.8"
+    }
+  },
+  "notes": [
+    "with_skill achieves 100% pass rate on both evals vs 17-29% without_skill — a +77% delta",
+    "without_skill baselines failed primarily because files were not collected (created outside workspace dir or not at all)",
+    "Both baselines correctly inferred layout direction (turn1-proposes assertions pass) but failed to produce verifiable output files",
+    "with_skill runs took ~60% longer on average (146s vs 90s) — skill's conversational workflow adds time but ensures quality",
+    "Single-run results — variance unknown, need multi-trial (task #36) for statistical confidence"
+  ]
+}

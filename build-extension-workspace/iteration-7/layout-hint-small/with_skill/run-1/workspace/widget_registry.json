@@ -1,0 +1,42 @@
+{
+  "widgets": [
+    {
+      "version": "1.0.0",
+      "title": "App Version Badge",
+      "type": "app_version_badge",
+      "description": "A small, unobtrusive pill badge that displays the current app version.",
+      "category": "custom",
+      "containers": ["Full width", "Sidebar"],
+      "widgetsLibrary": true,
+      "settings": {
+        "configurable": true,
+        "editable": true,
+        "removable": true,
+        "movable": true
+      },
+      "source": {
+        "path": "widgets/app-version",
+        "entry": "content.html"
+      },
+      "configuration": {
+        "properties": [
+          {
+            "name": "version_text",
+            "type": "text",
+            "label": "Version",
+            "defaultValue": "1.0.0",
+            "rules": {
+              "required": true,
+              "maxLength": 20
+            }
+          }
+        ]
+      },
+      "defaultConfig": {
+        "version_text": "1.0.0"
+      }
+    }
+  ],
+  "scripts": [],
+  "stylesheets": []
+}
