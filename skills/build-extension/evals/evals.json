@@ -384,6 +384,132 @@
           "type": "transcript"
         }
       ]
+    },
+    {
+      "id": 19,
+      "name": "github-integration",
+      "prompt": "Build a widget showing our latest releases from github.com/acme/product",
+      "expected_output": "Turn 1: Identifies GitHub API connector need, proposes token/apikey auth, asks about display preferences. Turn 2: User gives minimal confirmation. Agent fills gaps — correct GitHub API endpoint, auth config, visualization. Turn 3: User says 'go ahead'. Agent builds.",
+      "files": [],
+      "turns": [
+        "Yeah that works. We have a token for it.",
+        "Go ahead"
+      ],
+      "assertions": [
+        {
+          "name": "turn1-identifies-connector",
+          "text": "In turn 1, identifies that fetching GitHub releases requires a connector to the GitHub API",
+          "type": "transcript"
+        },
+        {
+          "name": "turn1-proposes-github-api",
+          "text": "In turn 1, references the GitHub API (api.github.com) or GitHub REST API as the data source — not scraping the HTML page",
+          "type": "transcript"
+        },
+        {
+          "name": "turn1-no-premature-build",
+          "text": "In turn 1, does NOT create any extension files — waits for user answer before building",
+          "type": "transcript"
+        },
+        {
+          "name": "turn2-fills-gaps",
+          "text": "In turn 2, agent proactively proposes the GitHub releases endpoint, auth configuration, and visualization — doesn't ask the user to look up API details",
+          "type": "transcript"
+        },
+        {
+          "name": "correct-api-endpoint",
+          "text": "Final connectors.json uses a GitHub API releases endpoint pattern (e.g., api.github.com/repos/acme/product/releases)",
+          "type": "transcript"
+        },
+        {
+          "name": "creates-token-connector",
+          "text": "Final connectors.json uses auth type 'apikey' with get_secret() for the GitHub token — no hardcoded secrets",
+          "type": "transcript"
+        },
+        {
+          "name": "uses-sdk-connector-execute",
+          "text": "Final widget code calls sdk.connectors.execute() to fetch data from the connector",
+          "type": "transcript"
+        },
+        {
+          "name": "shows-release-info",
+          "text": "Final widget displays release information (name, date, or version) — not just raw JSON",
+          "type": "transcript"
+        },
+        {
+          "name": "html-fragment",
+          "text": "Final dist/content.html is an HTML fragment (no <!DOCTYPE>, <html>, <head>, or <body> tags)",
+          "type": "transcript"
+        },
+        {
+          "name": "creates-valid-structure",
+          "text": "Final output includes widget.json with required fields and dist/content.html",
+          "type": "transcript"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "name": "known-service-auth",
+      "prompt": "Build a widget that pulls data from our Stripe dashboard",
+      "expected_output": "Turn 1: Identifies Stripe API connector need, proposes apikey auth, asks what data to display. Turn 2: User gives minimal confirmation. Agent fills gaps — correct Stripe endpoint, auth config, visualization. Turn 3: User says 'build it'. Agent builds.",
+      "files": [],
+      "turns": [
+        "Recent payments. We have an API key for it.",
+        "Build it"
+      ],
+      "assertions": [
+        {
+          "name": "turn1-identifies-stripe-connector",
+          "text": "In turn 1, identifies that pulling Stripe data requires a connector to the Stripe API",
+          "type": "transcript"
+        },
+        {
+          "name": "turn1-proposes-auth-pattern",
+          "text": "In turn 1, proposes or mentions API key authentication for Stripe — does not ask the user to figure out the auth type",
+          "type": "transcript"
+        },
+        {
+          "name": "turn1-no-premature-build",
+          "text": "In turn 1, does NOT create any extension files — waits for user answer before building",
+          "type": "transcript"
+        },
+        {
+          "name": "never-asks-for-key-value",
+          "text": "Agent never asks the user to paste, provide, or share the actual API key value — uses get_secret() pattern instead",
+          "type": "transcript"
+        },
+        {
+          "name": "turn2-fills-gaps",
+          "text": "In turn 2, agent proactively proposes Stripe API endpoint and visualization style rather than asking the user to specify them",
+          "type": "transcript"
+        },
+        {
+          "name": "creates-apikey-connector",
+          "text": "Final connectors.json uses auth type 'apikey' with get_secret() — no hardcoded secrets",
+          "type": "transcript"
+        },
+        {
+          "name": "correct-stripe-endpoint",
+          "text": "Final connectors.json uses a Stripe API endpoint (api.stripe.com) for fetching payment or charge data",
+          "type": "transcript"
+        },
+        {
+          "name": "uses-sdk-connector-execute",
+          "text": "Final widget code calls sdk.connectors.execute() to fetch data from the connector",
+          "type": "transcript"
+        },
+        {
+          "name": "html-fragment",
+          "text": "Final dist/content.html is an HTML fragment (no <!DOCTYPE>, <html>, <head>, or <body> tags)",
+          "type": "transcript"
+        },
+        {
+          "name": "creates-valid-structure",
+          "text": "Final output includes widget.json with required fields and dist/content.html",
+          "type": "transcript"
+        }
+      ]
     }
   ]
 }

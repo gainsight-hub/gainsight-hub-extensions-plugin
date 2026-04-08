@@ -53,7 +53,7 @@ Combine purpose, appearance, and data questions into a natural flow rather than 
 **For scripts**: What behavior, which pages, which provider?
 **For stylesheets**: What elements, brand colors, which pages?
 
-If the widget needs external data, propose a connector design (auth type, endpoint pattern) as part of your response — don't just flag it as a separate step. Example: "Since the NPS data comes from Delighted, I'd set up a connector with apikey auth using `get_secret('delighted_api_key')` — the widget would call `sdk.connectors.execute({ permalink: 'delighted-nps', method: 'GET' })` to fetch the score. Sound right?"
+**If the request implies external data (mentions an API, service name, or "pull/fetch/show data from X"), your first response MUST identify the connector need and propose a concrete auth pattern.** Don't defer this to a later turn — connector identification is as important as layout choice. Example: "Since the NPS data comes from Delighted, I'd set up a connector with apikey auth using `get_secret('delighted_api_key')` — the widget would call `sdk.connectors.execute({ permalink: 'delighted-nps', method: 'GET' })` to fetch the score. Sound right?"
 
 ### Step 3: Build and validate
 
