@@ -2,7 +2,7 @@
   "name": "gainsight-hub-extensions-dev",
   "metadata": {
     "description": "Development marketplace for gainsight-hub-extensions plugin",
-    "version": "0.1.0"
+    "version": "0.2.0"
   },
   "owner": {
     "name": "Gainsight"
@@ -11,7 +11,7 @@
     {
       "name": "gainsight-hub-extensions",
       "description": "Development experience for building Gainsight Customer Hub extensions",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "source": "./"
     }
   ]

@@ -101,14 +101,71 @@ Widgets should look like they were built by an experienced frontend developer. U
 
 ### HTML Content (`content.html`)
 - Must be an HTML **fragment** — no `<html>`, `<head>`, `<body>` tags
-- All CSS must be in `<style>` tags, all JS in `<script>` tags — inline
-- No relative imports — use absolute CDN URLs (HTTPS only)
+- All CSS must be in `<style>` tags or linked via relative paths
+- **Relative file references work** — the platform deploys the entire `source.path` directory (e.g. `dist/`), so `<script src="./app.js">` and `<link href="./styles.css">` resolve correctly. Prefer a separate `app.js` module over inline `<script>` blocks.
+- External CDN URLs must use HTTPS
 - Template variables: `{{ property_name }}` replaced at runtime from configuration
 
 ### Shadow DOM
-- DOM queries: use `sdk.$('.selector')` or `sdk.$$('.selector')` — NOT `document.querySelector()`
+- DOM queries: use `sdk.$('.selector')` or `sdk.$$('.selector')` on the **in-widget SDK** (the `sdk` instance passed to your `init()` function) — NOT `document.querySelector()`. These methods are not available on `WidgetServiceSDK`.
 - Branding: `var(--config--main-color-brand, #fallback)` for community colors
 - CSS is automatically scoped — won't leak out, page styles won't affect widget
+
+### Two SDKs — Widget SDK vs WidgetServiceSDK
+
+Widgets use **two separate SDKs** loaded from different CDN URLs. Do not conflate them.
+
+**1. In-widget SDK (`widget-sdk`)** — passed automatically to your `init()` function. Handles lifecycle, props, and DOM access inside the Shadow DOM.
+- `sdk.whenReady()` — resolves when the widget is mounted
+- `sdk.getProps()` — returns current configuration property values
+- `sdk.$('.selector')` / `sdk.$$('.selector')` — Shadow DOM queries
+- `sdk.on('propsChanged', cb)` — react to config changes
+- `sdk.on('destroy', cb)` — cleanup hook
+
+**2. WidgetServiceSDK (`widget-service-sdk`)** — instantiated manually via `new window.WidgetServiceSDK()`. Provides connector execution and HTTP helpers. It does **not** have `getProps`, `whenReady`, `$`, `on`, or any DOM/lifecycle methods.
+- `serviceSDK.connectors.execute({ permalink, method, path?, payload?, queryParams?, headers? })` — call a configured connector. **Use `payload` (plain object) for POST/PUT/PATCH bodies — never `body` or `JSON.stringify()`.** The SDK serializes internally; using `body` silently sends an empty request.
+
+**Required `content.html` structure:**
+```html
+<style>/* widget styles */</style>
+<div id="root"></div>
+<script src="https://static.customer-hub.northpass.com/widget-sdk/latest/index.umd.js"></script>
+<script src="https://static.customer-hub.northpass.com/widget-service-sdk/latest/index.umd.js"></script>
+<script type="module" src="./app.js"></script>
+```
+
+**Required `app.js` pattern:**
+```js
+export async function init(sdk) {
+  await sdk.whenReady();
+  var serviceSDK = new window.WidgetServiceSDK();
+  var props = sdk.getProps();
+
+  // Use sdk.$() for DOM, serviceSDK.connectors.execute() for data
+  var container = sdk.$('#root');
+  var data = await serviceSDK.connectors.execute({
+    permalink: 'my-connector',
+    method: 'GET'
+  });
+
+  // POST/PUT/PATCH: use `payload` (plain object), never `body` or JSON.stringify()
+  await serviceSDK.connectors.execute({
+    permalink: 'my-connector',
+    method: 'POST',
+    payload: { key: 'value' }
+  });
+
+  container.innerHTML = '...';
+
+  sdk.on('propsChanged', function() {
+    // re-render with updated props
+  });
+
+  sdk.on('destroy', function() {
+    // cleanup
+  });
+}
+```
 
 ### widget.json Required Fields
 - `version` — semver string (e.g. `"1.0.0"`)
@@ -148,7 +205,8 @@ widgets/<name>/
 ├── widget.json
 ├── connectors.json      # Optional
 └── dist/
-    └── content.html
+    ├── content.html
+    └── app.js
 ```
 
 **Script:**

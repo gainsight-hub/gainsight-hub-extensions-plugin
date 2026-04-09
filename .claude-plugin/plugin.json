@@ -1,6 +1,6 @@
 {
   "name": "gainsight-hub-extensions",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Development experience for building widgets, stylesheets, scripts, and connectors for the Gainsight Customer Hub (Insided) Extensions framework",
   "author": {
     "name": "Bartosz Glowacki"

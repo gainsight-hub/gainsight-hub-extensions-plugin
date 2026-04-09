@@ -1,5 +1,9 @@
 # Gainsight Hub Extensions Plugin
 
+## Versioning
+
+When updating skills, adding features, or making other meaningful changes, bump the version in both `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json` (they must stay in sync). Use semver: patch for fixes, minor for new features/skill updates, major for breaking changes.
+
 ## Eval Rules
 
 - **Baseline isolation**: When running skill evals, baseline (without_skill) agents must run in an isolated git worktree with skill content (`skills/*/SKILL.md`), fixture widgets, test directories, and `*-workspace/` eval output directories removed before execution. Keep `skills/*/evals/` intact — the eval runner needs `evals.json` for test definitions, and these don't leak skill knowledge. This prevents baselines from learning framework patterns by reading repo files or prior eval outputs, which inflates their scores and compresses the skill delta.
